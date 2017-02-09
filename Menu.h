@@ -6,11 +6,12 @@
 class Menu
 {
     int choice;
+    int current_position;
     public:
     Menu();
     int character_prof;
     int getSelection();
-    void displayMenu(int x);
+    int displayMenu();
     int displayNewGame();
     
 };

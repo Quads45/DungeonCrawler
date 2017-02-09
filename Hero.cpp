@@ -2,21 +2,22 @@
 
 #include "Hero.h"
 using namespace std;
-Hero::Hero(int profession)
+Hero::Hero(Hero::PROFESSION profession)
 {
-    if (profession ==1){
+    cout << "You have chosen " <<  << endl;
+    if (profession ==Hero::WARRIOR){
         hp=100;
         attack_damage=100;
         range=10;
         attack_speed= 1;
     }
-    if (profession==2){
+    if (profession==Hero::HUNTER){
         hp=70;
         attack_damage=70;
         range = 100;
         attack_speed = 1.4;
     }
-    if (profession==3){
+    if (profession==Hero::MAGE){
         hp=50;
         attack_damage=140;
         range = 70;

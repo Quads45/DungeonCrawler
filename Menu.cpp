@@ -4,7 +4,7 @@
 
 Menu::Menu()
 {
-    displayMenu(0);
+    if (displayMenu()==1) {displayNewGame();}
     
 };
 int Menu::getSelection()
@@ -13,22 +13,15 @@ int Menu::getSelection()
     cin >> choice;
     return choice;
 };
-void Menu::displayMenu(int x)
+int Menu::displayMenu()
 {
-  if(x == 0)
-  {
       cout << "Welcome to DungeonCrawler!" << endl
           <<"Main Menu"<< endl
           <<"1. New Game" << endl
           <<"2. Load Game" << endl
           <<"3. Settings" << endl
           <<"4. Exit"<<endl;
-      displayMenu(getSelection());
-  }
-  if(x==1)
-  {
-      character_prof = displayNewGame();
-  }
+      return(getSelection());
 };
 int Menu::displayNewGame()
 {
@@ -37,5 +30,6 @@ int Menu::displayNewGame()
           << "1. Warrior" << endl
           << "2. Hunter" << endl
           << "3. Mage" << endl;
-    return(getSelection());
+    character_prof = getSelection();
+    return character_prof;
 };

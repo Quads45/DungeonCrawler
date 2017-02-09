@@ -10,7 +10,8 @@ class Hero
     float crit_multiplier = 1.0;
     
     public:
-    Hero(int hero_profession);
+    enum PROFESSION {WARRIOR, HUNTER, MAGE};
+    Hero(Hero::PROFESSION profession);
     void getStats();
 };
 #endif
