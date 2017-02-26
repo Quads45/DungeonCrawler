@@ -1,35 +1,65 @@
 // Menu.cpp
-
+#include<iostream>
 #include "Menu.h"
-
+using namespace std;
+class InvalidInput {};
+class StringInput {};
 Menu::Menu()
 {
-    if (displayMenu()==1) {displayNewGame();}
     
-};
-int Menu::getSelection()
+}
+int Menu::getSelection(int maxChoice)
 {
-    cout << ">> ";
-    cin >> choice;
+	try {
+		cout << ">> ";
+		cin >> choice;
+		if (choice < 1 || choice > maxChoice)
+		{
+			throw InvalidInput{};
+		}
+
+	}
+	catch (InvalidInput) {
+		cout << "Invalid input, try again." << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+		getSelection(maxChoice);
+	}
+
     return choice;
-};
+}
 int Menu::displayMenu()
 {
       cout << "Welcome to DungeonCrawler!" << endl
           <<"Main Menu"<< endl
           <<"1. New Game" << endl
           <<"2. Load Game" << endl
-          <<"3. Settings" << endl
+          <<"3. Help" << endl
           <<"4. Exit"<<endl;
-      return(getSelection());
-};
+      return(getSelection(4));
+}
 int Menu::displayNewGame()
 {
-    cout << "New Game" << endl
-          << "Choose your class" << endl
-          << "1. Warrior" << endl
-          << "2. Hunter" << endl
-          << "3. Mage" << endl;
-    character_prof = getSelection();
-    return character_prof;
-};
+	cout << "New Game" << endl
+		<< "Choose your class" << endl
+		<< "1. Warrior" << endl
+		<< "2. Hunter" << endl
+		<< "3. Mage" << endl;
+	return getSelection(3);
+}
+int Menu::displayLoadGame()
+{
+	//To do..
+	return 0;
+}
+int Menu::displayHelp()
+{
+	//To do..
+	return 0;
+}
+string Menu::requestName()
+{
+	cout << "What is your name? ";
+	cin >> tempName;
+	return tempName;
+}

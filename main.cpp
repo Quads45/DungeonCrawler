@@ -1,38 +1,37 @@
 #include <iostream>
-#include "Hero.cpp"
-#include "Menu.cpp"
+//#include <stdio.h>
+//#include <sqlite3.h>
+#include "Hero.h"
+#include "Menu.h"
+#include "Game.h"
 using namespace std;
-void create_stickman(){
-        cout << "      .:::::-    "<<endl   
-<<"   .+hMMMMMMMMh:    " <<endl
-<<" `+NMMMMMMMMMMMMs   " <<endl
-<<"`mMMMMMNhoohMMMMMs  " <<endl
-<<".MMMMMs``  `yMMMMM: " <<endl
-<<".MMMMMd/.   /MMMMM: " <<endl
-<<" yMMMMMMNh/:NMMMMm` " <<endl
-<<" `:ymMMMMMMMMMMMM:  " <<endl
-<<"    .+MMMMMMMMMm/   " <<endl
-<<"     :MMMMMyss+.    " <<endl
-<<"     .MMMMM+        " <<endl
-<<"      MMMMMh.`      " <<endl
-<<"      yMMMMMmd/`    " <<endl
-<<"     :mMMMMMMMMy`   " <<endl
-<<"   `yMMMMMMMMMMMd:  " <<endl
-<<"  -dMMMMMMMMMMMMMNo`" <<endl
-<<".omMMMMMMMMMohMMMMMh" <<endl
-<<"NMMMMMNMMMMM:`oNMMNh" <<endl
-<<"NMMMm+oMMMMM`  .//: " <<endl
-<<".//:`:NMMMMMo-      " <<endl
-<<"    .NMMMMMMMMh+`   " <<endl
-<<"   `dMMMMMMMMMMMNy:`" <<endl
-<<"   sMMMMM+:sNMMMMMMm" <<endl
-<<"  .NMMMMh    /hMMMMM" <<endl
-<<" :NMMMMN-      `odmd" <<endl;
-}
 int main(){
-    create_stickman();
-    //Menu menu1;
-    Hero hero1(Hero::PROFESSION(0));
-    hero1.getStats();
+    //int prof;
+    Menu menu1;
+	int mainDisplayChoice = menu1.displayMenu();
+	Game game1;
+	string name;
+	if (mainDisplayChoice == 1)
+	{
+		name = menu1.requestName();
+		Hero hero1(name,menu1.displayNewGame());
+		game1.startNewGame(hero1);
+	}
+	else if (mainDisplayChoice == 2)
+	{
+		menu1.displayLoadGame();
+		//get saved stats from data base
+		//create character after this if statement
+	}
+	else if (mainDisplayChoice == 3)
+	{
+		menu1.displayHelp();
+	}
+	else if (mainDisplayChoice == 4)
+	{
+		return 0;
+	}
+	int a;
+	cin >> a;
     return 0;
 }
