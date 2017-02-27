@@ -13,6 +13,7 @@ int main(){
 	string name;
 	if (mainDisplayChoice == 1)
 	{
+		Inventory inv; 
 		name = menu1.requestName();
 		Hero hero1(name,menu1.displayNewGame());
 		game1.startNewGame(hero1);
@@ -33,5 +34,7 @@ int main(){
 	}
 	int a;
 	cin >> a;
+
+	
     return 0;
 }
