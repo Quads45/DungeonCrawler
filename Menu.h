@@ -1,6 +1,7 @@
 // Menu.h
 #ifndef Menu_H
 #define Menu_H
+#include<iostream>
 #include <string>
 class Menu
 {
@@ -8,7 +9,7 @@ class Menu
     int current_position;
 public:
     Menu(); 
-    int getSelection(int maxChoice);
+    int getSelection(int maxChoice); //Recieves input and checks for error	s
     int displayMenu();
     int displayNewGame();
 	int displayLoadGame();

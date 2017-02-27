@@ -13,10 +13,16 @@ Hero::Hero(string name, int profession)
         cout << "You have chosen hunter."<< endl;
 		setStats(70,70,100,1.4);
     }
-    if (profession == Hero::Mage){
-        cout << "You have chosen mage."<< endl;
-		setStats(50, 140,70,0.8);
-    }
+	if (profession == Hero::Mage) {
+		cout << "You have chosen mage." << endl;
+		setStats(50, 140, 70, 0.8);
+	};
+}
+Hero::Hero(int charID)
+{
+	Inventory inv(charID); //Use diffenent constructor.
+						   //This one will load items from database
+
 }
 void Hero::setStats(int newHp, int newAD, int newRange, float newAS)
 {
@@ -32,4 +38,9 @@ void Hero::getStats()
     cout << "AD: " << attack_damage<<'\n';
     cout << "AS: " << attack_speed <<'\n';
     cout << "Range: " << range <<'\n';
+}
+void loadHero()
+{
+	//to do
+	//read hero stats and info from 
 }
