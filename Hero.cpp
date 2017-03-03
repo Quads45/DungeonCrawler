@@ -1,47 +1,35 @@
 // Hero.cpp
-#include<iostream>
+
 #include "Hero.h"
 using namespace std;
-Hero::Hero(string name, int profession)
+Hero::Hero(Hero::PROFESSION profession)
 {
-	heroName = name;
-    if (profession == Hero::Warrior){
-        cout << "You have chosen warrior."<< endl;
-		setStats(100,100,10,1);
+    cout << "You have chosen " <<  << endl;
+    if (profession ==Hero::WARRIOR){
+        hp=100;
+        attack_damage=100;
+        range=10;
+        attack_speed= 1;
     }
-    if (profession == Hero::Hunter){
-        cout << "You have chosen hunter."<< endl;
-		setStats(70,70,100,1.4);
+    if (profession==Hero::HUNTER){
+        hp=70;
+        attack_damage=70;
+        range = 100;
+        attack_speed = 1.4;
     }
-	if (profession == Hero::Mage) {
-		cout << "You have chosen mage." << endl;
-		setStats(50, 140, 70, 0.8);
-	};
-	Inventory inv; // use standard constructor, unchanged if starting new game
+    if (profession==Hero::MAGE){
+        hp=50;
+        attack_damage=140;
+        range = 70;
+        attack_speed = 0.8;
+    }
 }
-Hero::Hero(int charID)
-{
-	Inventory inv(charID); //Use diffenent constructor.
-						   //This one will load items from database
 
-}
-void Hero::setStats(int newHp, int newAD, int newRange, float newAS)
-{
-	hp=newHp;
-    attack_damage=newAD;
-    range = newRange;
-    attack_speed = newAS;
-}
 void Hero::getStats()
 {
     cout << "Your statistics are: "<< endl;
-    cout << "HP: " << hp<<'\n';
-    cout << "AD: " << attack_damage<<'\n';
+    cout << "HP: " << attack_damage <<'\n';
+    cout << "AD: " << hp <<'\n';
     cout << "AS: " << attack_speed <<'\n';
     cout << "Range: " << range <<'\n';
-}
-void loadHero()
-{
-	//to do
-	//read hero stats and info from 
 }
