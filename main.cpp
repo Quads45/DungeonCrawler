@@ -1,19 +1,17 @@
 #include <iostream>
-//#include <stdio.h>
-//#include <sqlite3.h>
+#include "sqlite3/sqlite3.h"
 #include "Hero.h"
 #include "Menu.h"
 #include "Game.h"
 using namespace std;
 int main(){
-    //int prof;
+	sqlite3 *db();
     Menu menu1;
 	int mainDisplayChoice = menu1.displayMenu();
 	Game game1;
 	string name;
 	if (mainDisplayChoice == 1)
 	{
-		Inventory inv; 
 		name = menu1.requestName();
 		Hero hero1(name,menu1.displayNewGame());
 		game1.startNewGame(hero1);
@@ -30,7 +28,7 @@ int main(){
 	}
 	else if (mainDisplayChoice == 4)
 	{
-		return 0;
+		cout << "exit" << endl;
 	}
 	int a;
 	cin >> a;

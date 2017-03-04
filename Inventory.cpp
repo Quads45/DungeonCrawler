@@ -23,3 +23,4 @@ void Inventory::displayEquiped()
 	// test below
 	std::cout << "Equiped: Iron Longsword(+2 AD, +3 AS), Emerald Armour(+15 HP)." << std::endl;
 }
+

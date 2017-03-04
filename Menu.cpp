@@ -2,7 +2,6 @@
 #include "Menu.h"
 using namespace std;
 class InvalidInput {};
-class StringInput {};
 Menu::Menu()
 {
     
