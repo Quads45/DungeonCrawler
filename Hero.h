@@ -1,17 +1,25 @@
 // Hero.h
-
+#include "Inventory.h"
+#include "libsqlite.hpp"
+#include <string>
 #ifndef Hero_H
 #define Hero_H
 class Hero
 {
-    int hp, attack_damage, range, inventory_size, inventory_space, invetory_taken;
-    float attack_speed;
-    float crit_chance = 0.0;
-    float crit_multiplier = 1.0;
-    
+	// _____________
+
+	// database vars
+	int hp, defence, dodge, accuracy, attack_damage;
+	double attack_speed;
+	std::string heroName;
+
     public:
-    enum PROFESSION {WARRIOR, HUNTER, MAGE};
-    Hero(Hero::PROFESSION profession);
+	enum PROFESSION {Warrior=1, Hunter, Mage};
+    Hero(std::string name, int profession);
+	Hero(int charID);
+	void setStats(int newHp,int newDefence, int newDodge, int newAccuracy, int newAD, double newAS);
     void getStats();
+	std::string getName() { return heroName; };	
+	Inventory inv; // use standard constructor, unchanged if starting new game
 };
 #endif
