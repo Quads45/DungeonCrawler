@@ -16,6 +16,9 @@ public:
 	void initializeEquiped();
 	void loadInventory(int charID);
 	void displayEquiped();
+	void displayInventory();
+	void removeFromInventory(); // ie when someone sells item
+	void removeFromEquiped(); // removes item from equipped and places into inventory
 };
 
 #endif Inventory_H
