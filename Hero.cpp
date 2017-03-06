@@ -10,7 +10,7 @@ Hero::Hero(string name, int profession)
 	cur->set_sql("SELECT [ProfessionHP],[ProfessionDefence],[ProfessionDodge],[ProfessionAccuracy],[ProfessionAttackDamage],[ProfessionAttackSpeed] FROM [Profession] WHERE [ProfessionID]=?;");
 	cur->prepare();   // run query
 	cur->bind(1, profession); // pass variable to sql queary
-	cur->step(); 
+	cur->step();
 	heroName = name;
 	setStats(cur->get_int(0), cur->get_int(1), cur->get_int(2), cur->get_int(3), cur->get_int(4), cur->get_double(5));
     if (profession == Hero::Warrior){
@@ -41,7 +41,6 @@ void Hero::setStats(int newHp, int newDefence,int newDodge, int newAccuracy, int
 }
 void Hero::getStats()
 {
-    cout << "Your statistics are: "<< endl;
     cout << "HP: " << hp<<'\n';
     cout << "AD: " << attack_damage<<'\n';
     cout << "AS: " << attack_speed <<'\n' << '\n';

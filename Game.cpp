@@ -38,10 +38,10 @@ void Game::showTown(Hero hero1)
 		//to do, call shop
 		break;
 	case 3:
-		gotoInventory(hero1);
+		showInventory(hero1);
 		break;
 	case 4:
-		hero1.getStats();
+		showStats(hero1);
 		break;
 	case 5:
 		//to do, call save function
@@ -52,7 +52,10 @@ void Game::showTown(Hero hero1)
 }
 int Game::getSelection(int maxChoice)
 {
+	
 	try {
+		cin.clear();
+		cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 		cout << ">> ";
 		cin >> choice;
 		if (choice < 1 || choice > maxChoice)
@@ -70,10 +73,17 @@ int Game::getSelection(int maxChoice)
 
 	return choice;
 }
-void Game::gotoInventory(Hero hero1)
+void Game::showInventory(Hero hero1)
 {
 	cout << "Inventory" << endl
 		<< "Equiped items:" << endl;
 	hero1.inv.displayEquiped();
+	showTown(hero1);
 
+}
+void Game::showStats(Hero hero1)
+{
+	cout << hero1.getName() << ", your statistics are: \n";
+	hero1.getStats();
+	showTown(hero1);
 }

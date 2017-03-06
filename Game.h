@@ -10,7 +10,8 @@ public:
 	Game();
 	void startNewGame(Hero hero1);
 	void showTown(Hero hero1);
-	void gotoInventory(Hero hero1);
+	void showInventory(Hero hero1);
+	void showStats(Hero hero1);
 	int getSelection(int maxChoice);
 };
 #endif // !Game_H
