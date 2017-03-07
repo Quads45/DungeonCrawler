@@ -10,12 +10,17 @@ int main(){
 	int mainDisplayChoice = menu1.displayMenu();
 	Game game1;
 	string name;
+	int x = 0;
+	while (x < 5){ // testing if it created
+		Monster monster1(1);
+		cout << monster1.getMonsterName() << endl;
+		x += 1;
+	}
 	if (mainDisplayChoice == 1)
 	{
 		name = menu1.requestName();
 		Hero hero1(name,menu1.displayNewGame());
 		Monster monster1(1);
-		cout << monster1.getMonsterName() << endl;
 		game1.startNewGame(hero1);
 	}
 	else if (mainDisplayChoice == 2)

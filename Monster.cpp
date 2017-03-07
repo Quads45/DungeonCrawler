@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+
 using namespace std;
 
 Monster::Monster(int MonsterLevelSelect){
@@ -14,24 +15,21 @@ Monster::Monster(int MonsterLevelSelect){
 
 		auto cur = db.get_statement();
 
-		cur->set_sql("SELECT COUNT(*) FROM [Monster] WHERE [MonsterLevel]=?;");
+		cur->set_sql("SELECT [MonsterID] FROM [Monster] WHERE [MonsterLevel]=?;");
 		cur->prepare();
 		cur->bind(1, MonsterLevelSelect);
-		cur->step();
-
-		MonsterSelect = cur->get_int(0);
-
-		MonsterID = RNG(MonsterSelect);
-		
+		while (cur->step()){
+			possibleMonsterIDs.push_back(cur->get_int(0));
+		}
+		MonsterID = possibleMonsterIDs[RNG(possibleMonsterIDs.size())];
 	}
 	else {
 		sqlite::sqlite db("dung.db");
 
 		auto cur = db.get_statement();
-
 		cur->set_sql("SELECT [MonsterID] FROM [Monster] WHERE [MonsterLevel]=?;");
 		cur->prepare();
-		cur->bind(1, MonsterLevel);
+		cur->bind(1, MonsterLevelSelect);
 		cur->step();
 		MonsterID = cur->get_int(0);
 	}
@@ -69,5 +67,5 @@ int Monster::RNG(int maxValue)
 	
 	srand(time(0));
 	
-	return rand() % (maxValue + 1);
+	return rand() % (maxValue);
 }
