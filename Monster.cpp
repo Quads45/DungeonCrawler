@@ -14,7 +14,7 @@ Monster::Monster(int MonsterLevelSelect){
 
 		auto cur = db.get_statement();
 
-		cur->set_sql("SELECT COUNT(*) FROM Monster WHERE MonsterLevel = ?;");
+		cur->set_sql("SELECT COUNT(*) FROM [Monster] WHERE [MonsterLevel]=?;");
 		cur->prepare();
 		cur->bind(1, MonsterLevelSelect);
 		cur->step();
@@ -29,7 +29,7 @@ Monster::Monster(int MonsterLevelSelect){
 
 		auto cur = db.get_statement();
 
-		cur->set_sql("SELECT MonsterID FROM Monster WHERE MonsterLevel = ?;");
+		cur->set_sql("SELECT [MonsterID] FROM [Monster] WHERE [MonsterLevel]=?;");
 		cur->prepare();
 		cur->bind(1, MonsterLevel);
 		cur->step();
@@ -62,7 +62,7 @@ string Monster::getMonsterName() {
 }
 
 
-int RNG(int maxValue)
+int Monster::RNG(int maxValue)
 {
 	int count;
 	int RandomNumber;

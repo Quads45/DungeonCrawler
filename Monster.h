@@ -20,6 +20,7 @@ public:
 	bool getMonsterBoss();
 	int getMonsterExpValue();
 	int getMonsterLevel();
+	int RNG(int maxValue);
 
 };
 

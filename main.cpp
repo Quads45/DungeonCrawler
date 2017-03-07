@@ -3,9 +3,9 @@
 #include "Hero.h"
 #include "Menu.h"
 #include "Game.h"
+#include "Monster.h"
 using namespace std;
 int main(){
-	sqlite3 *db();
     Menu menu1;
 	int mainDisplayChoice = menu1.displayMenu();
 	Game game1;
@@ -14,6 +14,8 @@ int main(){
 	{
 		name = menu1.requestName();
 		Hero hero1(name,menu1.displayNewGame());
+		Monster monster1(1);
+		cout << monster1.getMonsterName() << endl;
 		game1.startNewGame(hero1);
 	}
 	else if (mainDisplayChoice == 2)
