@@ -22,4 +22,5 @@ class Hero
 	std::string getName() { return heroName; };	
 	Inventory inv; // use standard constructor, unchanged if starting new game
 };
+
 #endif

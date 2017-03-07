@@ -76,10 +76,21 @@ int Game::getSelection(int maxChoice)
 void Game::showInventory(Hero hero1)
 {
 	cout << "Inventory" << endl
-		<< "Equiped items:" << endl;
+		<< "Equiped items: " << endl;
 	hero1.inv.displayEquiped();
+	cout << "Inventory items: " << endl;
+	hero1.inv.displayInventory();
+	cout << "1. Change equiped items"
+		<< "2. Go back to town " << endl;
+	switch (getSelection(2)){
+	case 1:
+		hero1.inv.addToEquiped(1);
+		break;
+	case 2:
+		showTown(hero1);
+		break;
+	}
 	showTown(hero1);
-
 }
 void Game::showStats(Hero hero1)
 {

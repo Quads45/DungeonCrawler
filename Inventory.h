@@ -5,11 +5,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include "Item.h"
+#include "Inventory.h"
 class Inventory
-{
-	std::vector<int> equipedItemsID; //change it to multidimension vectors later
-	std::vector<int> inventoryItemsID;
+{	
+	int choice;
+	std::vector<Item> equipedItems; //stores equiped items
+	std::vector<Item> inventoryItems; // stores items that are in inventory but not equiped
 public:
 	Inventory();
 	Inventory(int charID);
@@ -19,6 +21,9 @@ public:
 	void displayInventory();
 	void removeFromInventory(); // ie when someone sells item
 	void removeFromEquiped(); // removes item from equipped and places into inventory
+	void addToEquiped(int ItemID);
+	void addToInventory(int ItemId);
+	int getSelection(int maxCHoice);
 };
 
 #endif Inventory_H

@@ -1,14 +1,13 @@
-
 #ifndef Item_H
 #define Item_H
-#include <string.>
+#include <string>
 
 class Item {
 	int ItemAttackDamage, ItemHP, ItemValue, ItemProfID;
 	std::string ItemType, ItemName;
 	double ItemAttackSpeed;
 public: 
-	Item(int AD, double AS, int HP, int Value, int ProfessionID, std::string Type, std::string Name);
+	Item(int ItemID);
 	int getItemAD();
 	int getItemHP();
 	double getitemAS();
