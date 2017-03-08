@@ -6,9 +6,7 @@
 #define Hero_H
 class Hero
 {
-	// _____________
 
-	// database vars
 	int hp, defence, dodge, accuracy, attack_damage;
 	double attack_speed;
 	std::string heroName;
@@ -21,6 +19,13 @@ class Hero
     void getStats();
 	std::string getName() { return heroName; };	
 	Inventory inv; // use standard constructor, unchanged if starting new game
+	int getHeroAD();
+	double getHeroAS();
+	int getHeroHP();
+	int getHeroDefence();
+	int getHeroAccuracy();
+	int getHeroDodge();
+
 };
 
 #endif

@@ -11,11 +11,6 @@ int main(){
 	Game game1;
 	string name;
 	int x = 0;
-	while (x < 5){ // testing if it created
-		Monster monster1(1);
-		cout << monster1.getMonsterName() << endl;
-		x += 1;
-	}
 	if (mainDisplayChoice == 1)
 	{
 		name = menu1.requestName();

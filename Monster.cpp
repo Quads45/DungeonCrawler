@@ -65,7 +65,7 @@ int Monster::RNG(int maxValue)
 	int count;
 	int RandomNumber;
 	
-	srand(time(0));
-	
+	int seed = static_cast<int>(time(0));
+	srand(seed);
 	return rand() % (maxValue);
 }

@@ -55,8 +55,30 @@ void Hero::getStats()
 	cout << "Accuracy: " << accuracy << '\n' << '\n';
 
 }
-void loadHero()
+std::string Hero::getName(){
+	return heroName;
+}
+int Hero::getHeroAD()
 {
-	//to do
-	//read hero stats and info from 
+	return attack_damage;
+}
+double Hero::getHeroAS()
+{
+	return attack_damage;
+}
+int Hero::getHeroHP()
+{
+	return hp;
+}
+int Hero::getHeroDefence()
+{
+	return defence;
+}
+int Hero::getHeroAccuracy()
+{
+	return accuracy;
+}
+int Hero::getHeroDodge()
+{
+	return dodge;
 }

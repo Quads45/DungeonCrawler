@@ -1,5 +1,6 @@
 // Game.cpp
 #include "Game.h"
+#include "Monster.h"
 using namespace std;
 class InvalidInput {};
 Game::Game() 
