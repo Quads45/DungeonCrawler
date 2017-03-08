@@ -35,7 +35,7 @@ char Battle::firstAttack(Hero hero1, Monster monster1)
 
 void Battle::startOfBattle(Hero hero1, Monster monster1)
 {
-	cout << "As you walk along you stop and notice a level " /*<< monster1.getMonsterName() */<< "1 " << monster1.getMonsterName() << " has appeared! " <<endl;
+	cout << "As you walk along you stop and notice a level " << monster1.getMonsterLevel() << " " << monster1.getMonsterName() << " has appeared! " <<endl;
 	firstTurn=firstAttack(hero1, monster1);
 
 

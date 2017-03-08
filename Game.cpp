@@ -34,7 +34,7 @@ void Game::showTown(Hero hero1)
 	switch (choice)	
 	{
 	case 1:
-		startBattle(hero1, 1);
+		startBattle(hero1, 2); // tests the battle class
 		//to do, call dung select screen
 		break;
 	case 2:
@@ -103,6 +103,6 @@ void Game::showStats(Hero hero1)
 }
 int Game::startBattle(Hero hero1, int MonsterLevelSelect)
 {
-	Battle battle1(hero1, MonsterLevelSelect);
+	Battle battle1(hero1, MonsterLevelSelect); //create battle, passes hero and dungeon level to battle class
 	return 1;
 }

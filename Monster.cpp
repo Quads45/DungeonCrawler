@@ -55,9 +55,6 @@ Monster::Monster(int MonsterLevelSelect){
 
 // Random Time Generator.cpp : Defines the entry point for the console application.
 //
-string Monster::getMonsterName() {
-	return MonsterName;
-}
 
 
 int Monster::RNG(int maxValue)
@@ -68,8 +65,4 @@ int Monster::RNG(int maxValue)
 	int seed = static_cast<int>(time(0));
 	srand(seed);
 	return rand() % (maxValue);
-}
-double Monster::getMonsterAS()
-{
-	return MonsterAttackSpeed;
 }

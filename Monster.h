@@ -17,7 +17,7 @@ public:
 	int getMonsterDodge() { return MonsterDodge; };
 	int getMonsterDefence() { return MonsterDefence; };
 	std::string getMonsterName() { return MonsterName; };
-	int getMonsterAccuracy() {return MonsterAccuracy};
+	int getMonsterAccuracy() { return MonsterAccuracy; };
 	bool getMonsterBoss() { return MonsterBoss; };
 	int getMonsterExpValue() { return MonsterExpValue; };
 	int getMonsterLevel() { return MonsterLevel; };
