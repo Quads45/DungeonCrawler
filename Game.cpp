@@ -1,6 +1,7 @@
 // Game.cpp
 #include "Game.h"
 #include "Monster.h"
+#include "Battle.h"
 using namespace std;
 class InvalidInput {};
 Game::Game() 
@@ -33,6 +34,7 @@ void Game::showTown(Hero hero1)
 	switch (choice)	
 	{
 	case 1:
+		startBattle(hero1, 1);
 		//to do, call dung select screen
 		break;
 	case 2:
@@ -98,4 +100,9 @@ void Game::showStats(Hero hero1)
 	cout << hero1.getName() << ", your statistics are: \n";
 	hero1.getStats();
 	showTown(hero1);
+}
+int Game::startBattle(Hero hero1, int MonsterLevelSelect)
+{
+	Battle battle1(hero1, MonsterLevelSelect);
+	return 1;
 }

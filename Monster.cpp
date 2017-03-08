@@ -69,3 +69,7 @@ int Monster::RNG(int maxValue)
 	srand(seed);
 	return rand() % (maxValue);
 }
+double Monster::getMonsterAS()
+{
+	return MonsterAttackSpeed;
+}

@@ -17,7 +17,7 @@ class Hero
 	Hero(int charID);
 	void setStats(int newHp,int newDefence, int newDodge, int newAccuracy, int newAD, double newAS);
     void getStats();
-	std::string getName() { return heroName; };	
+	std::string getName();
 	Inventory inv; // use standard constructor, unchanged if starting new game
 	int getHeroAD();
 	double getHeroAS();
@@ -25,6 +25,7 @@ class Hero
 	int getHeroDefence();
 	int getHeroAccuracy();
 	int getHeroDodge();
+
 
 };
 
