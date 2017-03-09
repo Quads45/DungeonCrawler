@@ -11,16 +11,16 @@ class Monster {
 
 public:
 	Monster(int MonsterLevelSelect);
-	int getMonsterAD() { return MonsterAttackDamage; };
-	int getMonsterHP() { return MonsterHP; };
-	double getMonsterAS() { return MonsterAttackSpeed; };
-	int getMonsterDodge() { return MonsterDodge; };
-	int getMonsterDefence() { return MonsterDefence; };
-	std::string getMonsterName() { return MonsterName; };
-	int getMonsterAccuracy() { return MonsterAccuracy; };
-	bool getMonsterBoss() { return MonsterBoss; };
-	int getMonsterExpValue() { return MonsterExpValue; };
-	int getMonsterLevel() { return MonsterLevel; };
+	int getMonsterAD();
+	int getMonsterHP();
+	double getMonsterAS();
+	int getMonsterDodge();
+	int getMonsterDefence();
+	std::string getMonsterName();
+	int getMonsterAccuracy();
+	bool getMonsterBoss();
+	int getMonsterExpValue();
+	int getMonsterLevel();
 	int RNG(int maxValue);
 
 };

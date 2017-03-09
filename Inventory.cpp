@@ -23,6 +23,10 @@ void Inventory::displayEquiped()
 	// to do
 	// test below
 	//std::cout << "Equiped: Iron Longsword(+2 AD, +3 AS), Emerald Armour(+15 HP)." << std::endl;
+	for (int i = 0; i < equipedItems.size(); i++)
+	{
+		cout << equipedItems[i].getItemName() << endl;
+	}
 }
 void Inventory::addToInventory(int ItemID)
 {
@@ -78,4 +82,15 @@ int Inventory::getSelection(int maxChoice)
 	}
 
 	return choice;
+}
+int Inventory::getEquipedItemID(int vectorIDofItem)
+{
+	// takes in the place of item where it is in vector and 
+	// returns the ItemID, which can be used to refernce it from database
+	return equipedItems[vectorIDofItem].getItemID();
+}
+void Inventory::removeFromEquiped(int vectorID)
+{
+	// removes item from the equiped items vector at the position of vectorID
+	equipedItems.erase(equipedItems.begin() + vectorID);
 }

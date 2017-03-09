@@ -20,10 +20,11 @@ public:
 	void displayEquiped();
 	void displayInventory();
 	void removeFromInventory(); // ie when someone sells item
-	void removeFromEquiped(); // removes item from equipped and places into inventory
+	void removeFromEquiped(int vectorID); // removes item from equipped and places into inventory
 	void addToEquiped(int ItemID);
 	void addToInventory(int ItemId);
 	int getSelection(int maxCHoice);
+	int getEquipedItemID(int vectorIDofItem);
 };
 
 #endif Inventory_H
