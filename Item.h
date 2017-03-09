@@ -3,7 +3,7 @@
 #include <string>
 
 class Item {
-	int ItemAttackDamage, ItemHP, ItemValue, ItemProfID;
+	int ItemAttackDamage, ItemHP, ItemValue, ItemProfID, ItemID;
 	std::string ItemType, ItemName;
 	double ItemAttackSpeed;
 public: 
@@ -15,6 +15,7 @@ public:
 	int getItemProfId();
 	std::string getItemType();
 	std::string getItemName();
+	int getItemID() { return ItemID; };
 };
 
 #endif

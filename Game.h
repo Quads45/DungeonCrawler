@@ -13,7 +13,6 @@ public:
 	void showInventory(Hero hero1);
 	void showStats(Hero hero1);
 	int getSelection(int maxChoice);
-	int startBattle(Hero hero1, int MonsterLevelSelect);
 };
 #endif // !Game_H
 	

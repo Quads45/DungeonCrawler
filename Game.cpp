@@ -1,7 +1,6 @@
 // Game.cpp
 #include "Game.h"
 #include "Monster.h"
-#include "Battle.h"
 using namespace std;
 class InvalidInput {};
 Game::Game() 
@@ -34,7 +33,6 @@ void Game::showTown(Hero hero1)
 	switch (choice)	
 	{
 	case 1:
-		startBattle(hero1, 2); // tests the battle class
 		//to do, call dung select screen
 		break;
 	case 2:
@@ -83,26 +81,26 @@ void Game::showInventory(Hero hero1)
 	hero1.inv.displayEquiped();
 	cout << "Inventory items: " << endl;
 	hero1.inv.displayInventory();
-	cout << "1. Change equiped items"
-		<< "2. Go back to town " << endl;
-	switch (getSelection(2)){
+	cout << "1. Swap items" << endl
+		<< "2. Unequip item" << endl
+		<< "3. Go back to town" << endl;
+	switch (getSelection(3)){
 	case 1:
+		// ask user what items to swap
 		hero1.inv.addToEquiped(1);
 		break;
 	case 2:
-		showTown(hero1);
+		// ask user what item to unequip
+		// item is places back into inventory
+		//hero1.inv.addToEquiped();
 		break;
+	default:
+		showTown(hero1);
 	}
-	showTown(hero1);
 }
 void Game::showStats(Hero hero1)
 {
 	cout << hero1.getName() << ", your statistics are: \n";
 	hero1.getStats();
 	showTown(hero1);
-}
-int Game::startBattle(Hero hero1, int MonsterLevelSelect)
-{
-	Battle battle1(hero1, MonsterLevelSelect); //create battle, passes hero and dungeon level to battle class
-	return 1;
 }

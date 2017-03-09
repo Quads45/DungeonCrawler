@@ -53,32 +53,14 @@ void Hero::getStats()
 	cout << "Defence: " << defence << '\n';
 	cout << "Dodge: " << dodge << '\n';
 	cout << "Accuracy: " << accuracy << '\n' << '\n';
+}
 
-}
-std::string Hero::getName(){
-	return heroName;
-}
-int Hero::getHeroAD()
-{
-	return attack_damage;
-}
-double Hero::getHeroAS()
-{
-	return attack_damage;
-}
-int Hero::getHeroHP()
-{
-	return hp;
-}
-int Hero::getHeroDefence()
-{
-	return defence;
-}
-int Hero::getHeroAccuracy()
-{
-	return accuracy;
-}
-int Hero::getHeroDodge()
-{
-	return dodge;
+
+void Hero::removeEquipedItem(int vectorID){
+	Item item(inv.getEquipedItemID(vectorID));
+	hp -= item.getItemHP();
+	attack_damage -= item.getItemAD();
+	attack_speed -= item.getitemAS();
+	inv.removeFromEquiped(vectorID);
+	inv.addToInventory(item.getItemID());
 }

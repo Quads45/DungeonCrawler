@@ -1,20 +1,21 @@
 #include "Item.h"
 #include "libsqlite.hpp"
-Item::Item(int ItemID) {
+Item::Item(int ItemSelectID) {
 	sqlite::sqlite db("dung.db");
 	
 	auto cur = db.get_statement();
-	cur->set_sql("SELECT [ItemAttackDamage],[ItemAttackSpeed],[ItemHP],[ItemType],[ItemValue],[ItemName],[ProfessionID] FROM [Items] WHERE [ItemID]=?;");
+	cur->set_sql("SELECT * FROM [Items] WHERE [ItemID]=?;");
 	cur->prepare();
-	cur->bind(1, ItemID);
+	cur->bind(1, ItemSelectID);
 	cur->step();
-	ItemAttackDamage = cur->get_int(0);
-	ItemAttackSpeed = cur->get_double(1);
-	ItemHP = cur->get_int(2);
-	ItemType = cur->get_text(3);
-	ItemValue = cur->get_int(4);
-	ItemName = cur->get_text(5);
-	ItemProfID = cur->get_int(6);
+	ItemID = cur->get_int(0);
+	ItemAttackDamage = cur->get_int(1);
+	ItemAttackSpeed = cur->get_double(2);
+	ItemHP = cur->get_int(3);
+	ItemType = cur->get_text(4);
+	ItemValue = cur->get_int(5);
+	ItemName = cur->get_text(6);
+	ItemProfID = cur->get_int(7);
 
 }
 int Item::getItemAD() {
