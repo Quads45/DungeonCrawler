@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 class Monster {
+	// Create variables for each field in the Monster table so they can be called by the functions below
 	int MonsterID, MonsterHP, MonsterSelect, MonsterDefence, MonsterAttackDamage, MonsterDodge, MonsterAccuracy, MonsterExpValue, MonsterLevel;
 	std::string MonsterName;
 	double MonsterAttackSpeed;
@@ -10,17 +11,18 @@ class Monster {
 	std::vector<int> possibleMonsterIDs;
 
 public:
+	// 
 	Monster(int MonsterLevelSelect);
-	int getMonsterAD();
-	int getMonsterHP();
-	double getMonsterAS();
-	int getMonsterDodge();
-	int getMonsterDefence();
-	std::string getMonsterName();
-	int getMonsterAccuracy();
-	bool getMonsterBoss();
-	int getMonsterExpValue();
-	int getMonsterLevel();
+	int getMonsterAD() { return MonsterAttackDamage; };
+	int getMonsterHP() { return MonsterHP; };
+	double getMonsterAS() { return MonsterAttackSpeed; };
+	int getMonsterDodge() { return MonsterDodge; };
+	int getMonsterDefence() { return MonsterDefence; };
+	std::string getMonsterName() { return MonsterName; };
+	int getMonsterAccuracy() { return MonsterAccuracy; };
+	bool getMonsterBoss() { return MonsterBoss; };
+	int getMonsterExpValue() { return MonsterExpValue; };
+	int getMonsterLevel() { return MonsterLevel; };
 	int RNG(int maxValue);
 
 };
