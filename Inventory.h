@@ -25,6 +25,8 @@ public:
 	void addToInventory(int ItemId);
 	int getSelection(int maxCHoice);
 	int getEquipedItemID(int vectorIDofItem);
+	int countGold();
+	void removeFromInventory(int vectorID);
 };
 
 #endif Inventory_H

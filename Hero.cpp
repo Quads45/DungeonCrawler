@@ -12,6 +12,7 @@ Hero::Hero(string name, int profession)
 	cur->bind(1, profession); // pass variable to sql queary
 	cur->step();
 	heroName = name;
+	profID = profession;
 	setStats(cur->get_int(0), cur->get_int(1), cur->get_int(2), cur->get_int(3), cur->get_int(4), cur->get_double(5));
     if (profession == Hero::Warrior){
         cout << "You have chosen warrior."<< endl;
