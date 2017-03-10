@@ -94,3 +94,18 @@ void Inventory::removeFromEquiped(int vectorID)
 	// removes item from the equiped items vector at the position of vectorID
 	equipedItems.erase(equipedItems.begin() + vectorID);
 }
+int Inventory::countGold()
+{
+	int gold;
+	for (int i; i < inventoryItems.size(); i++)
+	{
+		if (inventoryItems[i].getItemType() == "Currency"){
+			gold += 1;
+		}
+	}
+	return gold;
+}
+void Inventory::removeFromInventory(int vectorID)
+{
+	inventoryItems.erase(inventoryItems.begin() + (vectorID+1));
+}

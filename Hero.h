@@ -7,7 +7,7 @@
 class Hero
 {
 
-	int hp, defence, dodge, accuracy, attack_damage, level, experience;
+	int hp, defence, dodge, accuracy, attack_damage, level, experience, profID;
 	double attack_speed;
 	std::string heroName;
     public:
@@ -25,5 +25,6 @@ class Hero
 	int getHeroAccuracy() { return accuracy; }
 	int getHeroDodge() { return dodge; }
 	void removeEquipedItem(int vectorID);
+	int getHeroProfID() { return profID; }
 };
 #endif
