@@ -1,6 +1,7 @@
 // Inventory.cpp
 
 #include "Inventory.h"
+#include "libsqlite.hpp"
 class InvalidInput{};
 using namespace std;
 Inventory::Inventory()
@@ -15,8 +16,24 @@ void Inventory::loadInventory(int charID)
 {
 	//to do
 	// open database
+	sqlite::sqlite db("dung.db");
+	auto cur = db.get_statement();
+
 	// load items from inventory table
+	cur->set_sql("SELECT [ItemID],[InventoryQuantity],[InventoryEquipped] FROM [Inventory] WHERE [CharacterID] = ?;");
+	cur->prepare(); 
+	cur->bind(1, charID);
 	// where character == charID
+	while (cur->step()) {
+		//check whether the character id is correct and then whether its equipped or not
+		if (cur->get_int(3) == 1) {
+			//so the item is equipped so use the equip item function
+			addToEquiped(cur->get_int(1));
+		}
+		else{
+			addToInventory(cur->get_int(1));
+		}
+	}
 }
 void Inventory::displayEquiped()
 {

@@ -33,8 +33,24 @@ Hero::Hero(string name, int profession)
 }
 Hero::Hero(int charID)
 {
+	//open the database
+	sqlite::sqlite db("dung.db");
+	//create a query and access the table
+	auto cur = db.get_statement();
+	cur->set_sql("SELECT [CharacterID],[CharacterName],[ProfessionID],[Level_ID],[CharacterExperience] FROM [Character] WHERE [CharacterID] = ?;");
+	//execute the query
+	cur->prepare();
+	//the ? in the query allows us to narrow down the query search to a specific character ID
+	cur->bind(1, charID);
+	//load 
+	heroName = cur->get_text(1);
+	profID = cur->get_int(2);
+	level = cur->get_int(3);
+	experience = cur->get_int(4);
+
 	Inventory inv(charID); //Use diffenent constructor.
 						   //This one will load items from database
+	updateStats();
 
 }
 void Hero::setStats(int newHp, int newDefence,int newDodge, int newAccuracy, int newAD, double newAS)
