@@ -13,6 +13,10 @@ public:
 	void showInventory(Hero hero1);
 	void showStats(Hero hero1);
 	int getSelection(int maxChoice);
+	void Save(Hero hero1);
+	void SaveInventory(Hero hero1);
+	int getCharID();
+	void SaveEquiped(Hero hero1);
 };
 #endif // !Game_H
 	

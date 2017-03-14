@@ -13,7 +13,6 @@ Hero::Hero(string name, int profession)
 	cur->step();
 	heroName = name;
 	profID = profession;
-	setStats(cur->get_int(0), cur->get_int(1), cur->get_int(2), cur->get_int(3), cur->get_int(4), cur->get_double(5));
     if (profession == Hero::Warrior){
         cout << "You have chosen warrior."<< endl;
 		inv.addToInventory(1);
@@ -29,23 +28,19 @@ Hero::Hero(string name, int profession)
 		inv.addToInventory(3);
 		inv.addToInventory(4);
 	};
-	Inventory inv; // use standard constructor, unchanged if starting new game
+	level = 1;
+	experience = 0;
+	inv.addToInventory(7);
+	inv.moveToEquiped(1);
+	inv.moveToEquiped(0);
+	//Inventory inv;  use standard constructor, unchanged if starting new game
 }
 Hero::Hero(int charID)
 {
 	Inventory inv(charID); //Use diffenent constructor.
 						   //This one will load items from database
+}
 
-}
-void Hero::setStats(int newHp, int newDefence,int newDodge, int newAccuracy, int newAD, double newAS)
-{
-	hp=newHp;
-    attack_damage=newAD;
-    attack_speed = newAS;
-	defence = newDefence;
-	dodge = newDodge;
-	accuracy = newAccuracy;
-}
 void Hero::getStats()
 {
     cout << "HP: " << hp<<'\n';
@@ -57,11 +52,45 @@ void Hero::getStats()
 }
 
 
-void Hero::removeEquipedItem(int vectorID){
-	Item item(inv.getEquipedItemID(vectorID));
-	hp -= item.getItemHP();
-	attack_damage -= item.getItemAD();
-	attack_speed -= item.getitemAS();
-	inv.removeFromEquiped(vectorID);
-	inv.addToInventory(item.getItemID());
+void Hero::updateStats(){
+	// call function from inventory that returns the 
+	// call it again
+	Item item1(inv.getEquipedItemID(0));
+	Item item2(inv.getEquipedItemID(1));
+	sqlite::sqlite db("dung.db");    // open database
+	int heroHP, heroAD, levelHP, levelAD, levelDefence, LevelAccuracy, LevelDodge, heroDefence, heroAccuracy, heroDodge;
+	double heroAS, LevelAS;
+	auto cur = db.get_statement();            // create query   
+	cur->set_sql("SELECT [ProfessionHP],[ProfessionAttackDamage],[ProfessionAttackSpeed],[ProfessionDefence],[ProfessionAccuracy],[ProfessionDodge] FROM [Profession] WHERE [ProfessionID]=?;");
+	cur->prepare();   // run query
+	cur->bind(1, profID); // pass variable to sql queary
+	cur->step();
+	heroHP = cur->get_int(0);
+	heroAD = cur->get_int(1);
+	heroAS = cur->get_double(2);
+	heroDefence = cur->get_int(3);
+	heroAccuracy = cur->get_int(4);
+	heroDodge = cur->get_int(5);
+	if (true)
+	{
+		auto cur = db.get_statement();            // create query   
+		cur->set_sql("SELECT [LevelAddDefence],[LevelAddAttDmg],[LevelAddDodge],[LevelAddAccuracy],[LevelAddAttSpd],[LevelAddHp] FROM [Level] WHERE [Level_ID]=?;");
+		cur->prepare();   // run query
+		cur->bind(1, level); // pass variable to sql queary
+		cur->step();
+		levelDefence = cur->get_int(0);
+		levelAD = cur->get_int(1);
+		LevelDodge = cur->get_int(2);
+		LevelAccuracy = cur->get_int(3);
+		LevelAS = cur->get_double(4);
+		levelHP = cur->get_int(5);
+	}
+	hp = heroHP + item1.getItemHP() + item2.getItemHP() + levelHP;
+	attack_damage = heroAD + item1.getItemAD() + item2.getItemAD() + levelAD;
+	attack_speed = heroAS + item1.getitemAS() + item2.getitemAS() + LevelAS;
+	defence = heroDefence + levelDefence;
+	accuracy = heroAccuracy + LevelAccuracy;
+	dodge = heroDodge + LevelAccuracy;
 }
+
+

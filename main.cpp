@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Monster.h"
+#include <string>
 using namespace std;
 int main(){
     Menu menu1;
