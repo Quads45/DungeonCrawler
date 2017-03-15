@@ -49,17 +49,17 @@ int Menu::displayNewGame()
 }
 int Menu::displayLoadGame()
 {
-	//To do..
+	//open the database
 	sqlite::sqlite db("dung.db");
 	auto cur = db.get_statement();
 	
 	//count how many records have been read
 	int RcdCount = 0;
-	//create variables to temporarily hold data
+	//create variables to temporarily hold data on the character
 	string tempCharName;
 	int tempCharLevel;
 	int tempCharID;
-
+	//create a query the 
 	//read the relevant values from each record of the Character table
 	cur->set_sql("SELECT [CharacterID],[CharacterName],[Level_ID] FROM [Character];");
 	cur->prepare();
@@ -78,7 +78,8 @@ int Menu::displayLoadGame()
 
 	//get the user to select a save by typing in a character ID
 	cout << "Please select a Character to load.";
-	// create a variable 
+	// get the user to inpute what save they want to load
+	//by calling the getselection function
 	return getSelection(RcdCount);
 	
 }

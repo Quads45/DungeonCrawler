@@ -42,7 +42,7 @@ Hero::Hero(int charID)
 	cur->prepare();
 	//the ? in the query allows us to narrow down the query search to a specific character ID
 	cur->bind(1, charID);
-	//load 
+	//load the values saved in the database into variables used by the hero class
 	heroName = cur->get_text(1);
 	profID = cur->get_int(2);
 	level = cur->get_int(3);
@@ -50,8 +50,7 @@ Hero::Hero(int charID)
 
 	Inventory inv(charID); //Use diffenent constructor.
 						   //This one will load items from database
-	updateStats();
-
+	//updateStats();		   //This will update the stats of the character depending on what level they are.
 }
 void Hero::setStats(int newHp, int newDefence,int newDodge, int newAccuracy, int newAD, double newAS)
 {

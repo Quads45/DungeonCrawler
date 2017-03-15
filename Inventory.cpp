@@ -31,6 +31,8 @@ void Inventory::loadInventory(int charID)
 			addToEquiped(cur->get_int(1));
 		}
 		else{
+			//the item does not have the equipped status
+			//so it is just added to the inventory
 			addToInventory(cur->get_int(1));
 		}
 	}
