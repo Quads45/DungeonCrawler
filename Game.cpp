@@ -34,6 +34,8 @@ void Game::showTown(Hero hero1)
 	switch (choice)	
 	{
 	case 1:
+		goToBattle(hero1);
+		showTown(hero1);
 		//to do, call dung select screen
 		break;
 	case 2:
@@ -183,4 +185,6 @@ void Game::SaveEquiped(Hero hero1){
 		sqlite3_finalize(stmt);
 		sqlite3_close(db);
 	}
+void Game::goToBattle(Hero hero1) {
+	Battle battle1(hero1, 1);
 }

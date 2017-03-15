@@ -1,5 +1,6 @@
 // Game.h
 #include "Hero.h"
+#include "Battle.h"
 #include<iostream>
 #ifndef Game_H
 #define Game_H
@@ -17,6 +18,7 @@ public:
 	void SaveInventory(Hero hero1);
 	int getCharID();
 	void SaveEquiped(Hero hero1);
+	void goToBattle(Hero hero1);
 };
 #endif // !Game_H
 	

@@ -24,7 +24,7 @@ public:
 	int getMonsterExpValue() { return MonsterExpValue; };
 	int getMonsterLevel() { return MonsterLevel; };
 	int RNG(int maxValue);
-
+	int getMonsterID() { return MonsterID; };
 };
 
 #endif 

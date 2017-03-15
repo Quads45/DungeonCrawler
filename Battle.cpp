@@ -1,51 +1,324 @@
 //Battle.cpp
 #include "Battle.h"
 #include "libsqlite.hpp"
+#include "windows.h"
+#include "MMSystem.h"
+
 using namespace std;
+
 
 Battle::Battle(Hero hero1,int monsterLevel) // constructor
 {
 	Monster monster1(monsterLevel);
+	Spell spell1(0, hero1.getProfID());
+	currentSpells.push_back(spell1);
 	startOfBattle(hero1, monster1);
-		
-		//auto cur = db.get_statement();            // create query
-	//cur->set_sql("SELECT [ProfessionHP],[ProfessionDefence],[ProfessionDodge],[ProfessionAccuracy],[ProfessionAttackDamage],[ProfessionAttackSpeed] FROM [Profession] WHERE [ProfessionID]=?;");
-
+	
 }
 
-char Battle::firstAttack(Hero hero1, Monster monster1)
+char Battle::firstAttack()
 {
 	// compares the attack speed of hero with monster
 	// returns whos turn is first
 	
-	if (hero1.getHeroAS() >= monster1.getMonsterAS()) {
-		cout << "It is your turn" << hero1.getName() << " Please choose your turn Wisely! ..." << endl;
+	if (curHero1.AS >= curMonster1.AS) {
 		return('h');
-
 	}
 	else {
-		cout << "It is "  << monster1.getMonsterName() << " turn ... Please Wait ..." << endl;
 		return('m');
 	}
-	
-
-
-
 }
 
 void Battle::startOfBattle(Hero hero1, Monster monster1)
 {
-	cout << "As you walk along you stop and notice a level " << monster1.getMonsterLevel() << " " << monster1.getMonsterName() << " has appeared! " <<endl;
-	firstTurn=firstAttack(hero1, monster1);
+	//Clear Console
+	system("cls");
+	
+	//Dungeon level
+	cout << "====================================================================" << "\n DUNGEON - Level " << monster1.getMonsterLevel() 
+		<< "\n====================================================================" << "\n" << endl;
+	loadMonsterSpell(monster1);
+	//Intro
+	cout << "As you walk along you stop and notice a level " << monster1.getMonsterLevel() << " " << monster1.getMonsterName() << " has appeared! " << "\n" << endl;
+	
+	//Display Monster
+	dispImage(monster1);
 
-
-
-
-
+	//Monster Sound
+	playSound(monster1);
+	
+	//In Battle Stats
+	curHero1.HP = hero1.getHeroHP();
+	curHero1.AD = hero1.getHeroAD();
+	curHero1.AS = hero1.getHeroAS();
+	curHero1.defence = hero1.getHeroDefence();
+	curHero1.accuracy = hero1.getHeroAccuracy();
+	curHero1.dodge = hero1.getHeroDodge();
+	curMonster1.HP = monster1.getMonsterHP();
+	curMonster1.AD = monster1.getMonsterAD();
+	curMonster1.AS = monster1.getMonsterAS();
+	curMonster1.defence = monster1.getMonsterDefence();
+	curMonster1.accuracy = monster1.getMonsterAccuracy();
+	curMonster1.dodge = monster1.getMonsterDodge();
+	gameEngine(hero1, monster1);
 }
 
-void Battle::getAccuracy(Hero hero1)
+
+double Battle::getAccuracy(char whoseTurn)
 {
 	// Depending on whos turn it is, check the accuracy of the hero with the dodge of the monster and vice versa
 	//Returns chance of hit
+	if (whoseTurn == 'h')
+	{
+		if (curMonster1.dodge > curHero1.accuracy)
+		{
+			return (0);
+		}
+		return((curHero1.accuracy - curMonster1.dodge));
+	}
+	else
+	{
+		if (curHero1.dodge > curMonster1.accuracy)
+		{
+			return (0);
+		}
+		return((curMonster1.accuracy - curHero1.dodge));
+	}
+	
+
+
 }
+void Battle::gameEngine(Hero hero1, Monster monster1)
+{
+	while ((curHero1.HP > 1) && (curMonster1.HP>1)) {
+		if (firstAttack()=='h') {
+			heroTurn(hero1, monster1);
+			if (curMonster1.HP > 0) {
+				monsterTurn(hero1, monster1);
+			}
+		}
+		else {
+			monsterTurn(hero1, monster1);
+			if (curHero1.HP > 0) {
+				heroTurn(hero1, monster1);
+			}
+		}
+	}
+	if (curMonster1.HP > 0){
+		cout << "You lost, you suck. " << endl;
+	}
+	else
+	{
+		dropLoot(monster1, hero1);
+		cout << "\nYou won gg" << endl;
+	}
+	//Game game1;
+	//game1.startNewGame(hero1);
+	//display end of battle
+}
+
+//Monster ASCII
+void Battle::dispImage(Monster monster1)
+{
+	if (monster1.getMonsterName() == "Zombie") {
+		cout << "           		.....    \n" 
+		     << "                   C C  /   \n" 
+			 << "                  /<   /    \n"
+			 << "   ___ __________/_#__=o    \n"
+			 << "  /(- /(\_\________   \     \n"
+			 << "  \ ) \ )_      \o     \    \n"
+			 << "  /|\ /|\       |'     |    \n"
+			 << "                |     _|    \n"
+			 << "                /o   __\    \n"
+			 << "               / '     |    \n"
+			 << "              / /      |    \n"
+			 << "             /_/\______|    \n"
+			 << "            (   _(    <     \n"
+			 << "             \    \    \    \n"
+			 << "              \    \    |   \n"
+			 << "               \____\____\  \n"
+			 << "               ____\_\__\_\ \n"
+			 << "             /`   /`     o\ \n"
+			 << "             |___ |_______| \n" << endl;
+	}
+	/*if (monster1.getMonsterName() == "Orc") {
+		;
+	}
+	if (monster1.getMonsterName() == "Troll") {
+		;
+	}
+	if (monster1.getMonsterName() == "Big Foot") {
+		;
+	}
+	if (monster1.getMonsterName() == "Vampire") {
+		;
+	}
+	if (monster1.getMonsterName() == "Gremlin") {
+		;
+	}*/
+}
+
+
+//Monster Sounds
+void Battle::playSound(Monster monster1)
+{
+	if (monster1.getMonsterName() == "Zombie") {
+		PlaySound(TEXT("zombie.wav"), NULL, SND_SYNC);
+	}
+	if (monster1.getMonsterName() == "Orc") {
+		PlaySound(TEXT("orc.wav"), NULL, SND_SYNC);
+	}
+	if (monster1.getMonsterName() == "Troll") {
+		PlaySound(TEXT("troll.wav"), NULL, SND_SYNC);
+	}
+	if (monster1.getMonsterName() == "Big Foot") {
+		PlaySound(TEXT("bigfoot.wav"), NULL, SND_SYNC);
+	}
+	if (monster1.getMonsterName() == "Vampire") {
+		PlaySound(TEXT("vampire.wav"), NULL, SND_SYNC);
+	}
+	if (monster1.getMonsterName() == "Gremlin") {
+		PlaySound(TEXT("gremlin.wav"), NULL, SND_SYNC);
+	}
+}
+
+
+
+
+void Battle::heroTurn(Hero hero1, Monster monster1)
+{	//hero and monster defence
+	int choice;
+	
+	
+	//Spell spell2(1, hero1.getProfID());
+	cout << "It is your turn " << hero1.getName() << " Please choose your turn Wisely! ..." << endl;
+	cout << "Select your ability:" << endl;
+	for (int i=0; i < currentSpells.size(); i++) {
+		cout << i+1 << ". " << currentSpells[i].getSpellName() << endl;
+	}
+
+	cin >> choice;
+	choice -= 1;
+
+	int hpDamage=0;
+	int accuracyDamage=0;
+	int attDmgDamage=0;
+	double attSpdDamage=0;
+	int DefenceDamage=0;
+	int DodgeDamage=0;
+
+	if (monster1.RNG(100) <= getAccuracy('h')) {
+		hpDamage = curHero1.AD + currentSpells[choice].getSpellHPDamage();
+		accuracyDamage = curHero1.AD + currentSpells[choice].getSpellAccuracyDamage();
+		attDmgDamage = curHero1.AD + currentSpells[choice].getSpellAttDmgDamage();
+		attSpdDamage = curHero1.AD + currentSpells[choice].getSpellAttSpdDamage();
+		DefenceDamage = curHero1.AD + currentSpells[choice].getSpellDefenceDamage();
+		DodgeDamage = curHero1.AD + currentSpells[choice].getSpellDodgeDamage();
+		cout << "You have done " << hpDamage << "damage!" << endl;
+	}
+	else {
+		cout << "You have missed" << endl;
+	}
+	
+
+	curMonster1.HP -= hpDamage;
+	curMonster1.accuracy -= accuracyDamage;
+	curMonster1.AD -= attDmgDamage;
+	curMonster1.AS -= attSpdDamage;
+	curMonster1.defence -= DefenceDamage;
+	curMonster1.dodge -= DodgeDamage;
+	cout << monster1.getMonsterName() << " now has " << curMonster1.HP << " HP." << endl << endl;
+
+
+
+}
+void Battle::monsterTurn(Hero hero1, Monster monster1)
+{
+
+	int rndChoice = 0;
+	
+	cout << "It is " << monster1.getMonsterName() << " turn ... Please Wait ..." << endl;
+	cout << "The " << monster1.getMonsterName() << " has used " << MonsterSpells[rndChoice].getSpellName() << endl;
+	//Random number for picking spell
+	//rndChoice = RNG;
+	
+	int hpDamage = 0;
+	int accuracyDamage = 0;
+	int attDmgDamage = 0;
+	double attSpdDamage = 0;
+	int DefenceDamage = 0;
+	int DodgeDamage = 0;
+	
+	if (monster1.RNG(100) <= getAccuracy('m')) {
+		hpDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellHPDamage();
+		accuracyDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAccuracyDamage();
+		attDmgDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAttDmgDamage();
+		attSpdDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAttSpdDamage();
+		DefenceDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellDefenceDamage();
+		DodgeDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellDodgeDamage();
+		cout << "The " << monster1.getMonsterName() << " has done " << hpDamage << "damage!" << endl;
+	}
+	else {
+		cout << "The " << monster1.getMonsterName() << " has missed" << endl;
+	}
+
+	curHero1.HP -= hpDamage;
+	curHero1.accuracy -= accuracyDamage;
+	curHero1.AD -= attDmgDamage;
+	curHero1.AS -= attSpdDamage;
+	curHero1.defence -= DefenceDamage;
+	curHero1.dodge -= DodgeDamage;
+	cout << "You now have " << curHero1.HP << endl<< endl<< endl;
+
+}
+void Battle::loadMonsterSpell(Monster monster1) {
+	//readin all spell ids where monster id equal to monster1.id
+
+	sqlite::sqlite db("dung.db");    // open database
+
+	auto cur = db.get_statement();            // Allows acess
+	cur->set_sql("SELECT [Spell_ID] FROM [MonsterSpellList] WHERE [MonsterID]=?;");
+	cur->prepare(); //Exectues the query
+	cur->bind(1, monster1.getMonsterID());
+	while (cur->step()) {
+		MonsterSpellIDs.push_back(cur->get_int(0));
+	}
+	for (int i=0; i < MonsterSpellIDs.size(); i++) {
+		cout << MonsterSpellIDs[i] << endl;
+		Spell spell1(MonsterSpellIDs[i]);
+		MonsterSpells.push_back(spell1);
+	}
+
+
+
+
+	//push all spell id into vector
+	//create a new loop add spells to vector 
+}
+void Battle::dropLoot(Monster monster1, Hero hero1) {
+	// load items and chance into seperate vectors
+	// if the chance in the chance vector gives item add item from vector to inventory
+	vector<int> possibleItemIDs;
+	vector<double> chance;
+
+	sqlite::sqlite db("dung.db");    // open database
+
+	auto cur = db.get_statement();            // Allows acess
+	cur->set_sql("SELECT [ItemID], [Chance] FROM [MonsterLoot] WHERE [MonsterID]=?;");
+	cur->prepare(); //Exectues the query
+	cur->bind(1, monster1.getMonsterID());
+	while (cur->step()) {
+		possibleItemIDs.push_back(cur->get_int(0));
+		chance.push_back(cur->get_int(1));
+	}
+	int RNG = monster1.RNG(100);
+	for (int i = 0; i < possibleItemIDs.size(); i++)
+	{
+		if (RNG < chance[i]) {
+			hero1.inv.addToInventory(possibleItemIDs[i]);
+			Item item1(possibleItemIDs[i]);
+			cout << "You have received " << item1.getItemName() << endl;
+		}
+	}
+}
+
