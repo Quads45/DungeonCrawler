@@ -7,10 +7,10 @@
 using namespace std;
 
 
-Battle::Battle(Hero hero1,int monsterLevel) // constructor
+Battle::Battle(Hero &hero1,int monsterLevel) // constructor
 {
 	Monster monster1(monsterLevel);
-	Spell spell1(0, hero1.getProfID());
+	Spell spell1(0, hero1.getHeroProfID());
 	currentSpells.push_back(spell1);
 	startOfBattle(hero1, monster1);
 	
@@ -29,7 +29,7 @@ char Battle::firstAttack()
 	}
 }
 
-void Battle::startOfBattle(Hero hero1, Monster monster1)
+void Battle::startOfBattle(Hero &hero1, Monster monster1)
 {
 	//Clear Console
 	system("cls");
@@ -45,10 +45,11 @@ void Battle::startOfBattle(Hero hero1, Monster monster1)
 	dispImage(monster1);
 
 	//Monster Sound
-	playSound(monster1);
+	//playSound(monster1);
 	
 	//In Battle Stats
 	curHero1.HP = hero1.getHeroHP();
+	cout << curHero1.HP << endl;
 	curHero1.AD = hero1.getHeroAD();
 	curHero1.AS = hero1.getHeroAS();
 	curHero1.defence = hero1.getHeroDefence();
@@ -88,7 +89,7 @@ double Battle::getAccuracy(char whoseTurn)
 
 
 }
-void Battle::gameEngine(Hero hero1, Monster monster1)
+void Battle::gameEngine(Hero &hero1, Monster monster1)
 {
 	while ((curHero1.HP > 1) && (curMonster1.HP>1)) {
 		if (firstAttack()=='h') {
@@ -160,6 +161,7 @@ void Battle::dispImage(Monster monster1)
 
 
 //Monster Sounds
+/*
 void Battle::playSound(Monster monster1)
 {
 	if (monster1.getMonsterName() == "Zombie") {
@@ -181,7 +183,7 @@ void Battle::playSound(Monster monster1)
 		PlaySound(TEXT("gremlin.wav"), NULL, SND_SYNC);
 	}
 }
-
+*/
 
 
 
@@ -295,7 +297,7 @@ void Battle::loadMonsterSpell(Monster monster1) {
 	//push all spell id into vector
 	//create a new loop add spells to vector 
 }
-void Battle::dropLoot(Monster monster1, Hero hero1) {
+void Battle::dropLoot(Monster monster1, Hero &hero1) {
 	// load items and chance into seperate vectors
 	// if the chance in the chance vector gives item add item from vector to inventory
 	vector<int> possibleItemIDs;
@@ -321,4 +323,3 @@ void Battle::dropLoot(Monster monster1, Hero hero1) {
 		}
 	}
 }
-

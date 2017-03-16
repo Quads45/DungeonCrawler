@@ -46,7 +46,7 @@ void Inventory::displayEquiped()
 void Inventory::addToInventory(int ItemID)
 {
 	Item item(ItemID); //  creates item using the ID given when called the function
-	inventoryItems.push_back(item); //  add the item to the vector
+	inventoryItems.emplace_back(item);//  add the item to the vector
 	//add item to inventory using ID
 
 }
@@ -88,7 +88,7 @@ void Inventory::displayInventory()
 			cout << "HP: " << inventoryItems[i].getItemHP() << " ,";
 		}
 		cout << "Value: " << inventoryItems[i].getItemValue() << " ,";
-		cout << "Type: " << inventoryItems[i].getItemType() << ")" <<  endl;
+		cout << "Type: " << inventoryItems[i].getItemType() << ")" << endl;
 	}
 }
 int Inventory::getSelection(int maxChoice)
@@ -122,6 +122,7 @@ int Inventory::getEquipedItemID(int vectorIDofItem)
 }
 int Inventory::countGold()
 {
+	// Sequential search
 	int gold;
 	for (int i; i < inventoryItems.size(); i++)
 	{

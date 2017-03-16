@@ -33,7 +33,7 @@ Hero::Hero(string name, int profession)
 	inv.addToInventory(7);
 	inv.moveToEquiped(1);
 	inv.moveToEquiped(0);
-	//Inventory inv;  use standard constructor, unchanged if starting new game
+	updateStats();
 }
 Hero::Hero(int charID)
 {
@@ -61,7 +61,7 @@ void Hero::updateStats(){
 	int heroHP, heroAD, levelHP, levelAD, levelDefence, LevelAccuracy, LevelDodge, heroDefence, heroAccuracy, heroDodge;
 	double heroAS, LevelAS;
 	auto cur = db.get_statement();            // create query   
-	cur->set_sql("SELECT [ProfessionHP],[ProfessionAttackDamage],[ProfessionAttackSpeed],[ProfessionDefence],[ProfessionAccuracy],[ProfessionDodge] FROM [Profession] WHERE [ProfessionID]=?;");
+	cur->set_sql("SELECT [ProfessionHP], [ProfessionAttackDamage], [ProfessionAttackSpeed], [ProfessionDefence], [ProfessionAccuracy], [ProfessionDodge] FROM [Profession] WHERE [ProfessionID]=?;");
 	cur->prepare();   // run query
 	cur->bind(1, profID); // pass variable to sql queary
 	cur->step();

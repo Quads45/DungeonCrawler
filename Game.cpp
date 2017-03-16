@@ -1,6 +1,7 @@
 // Game.cpp
 #include "Game.h"
 #include "Monster.h"
+#include "Battle.h"
 #include "sqlite3/sqlite3.h"
 using namespace std;
 class InvalidInput {};
@@ -8,7 +9,7 @@ Game::Game()
 {
 
 }
-void Game::startNewGame(Hero hero1) 
+void Game::startNewGame(Hero &hero1) 
 {
 	//Describe lore
 	//Talk about spooky monsters invading town and how you, the hero, must defend it.
@@ -18,7 +19,7 @@ void Game::startNewGame(Hero hero1)
 		<< "[------------------------------------]\n\n";
 	showTown(hero1);
 }
-void Game::showTown(Hero hero1)
+void Game::showTown(Hero &hero1)
 {
 	//to do
 	//ask user what he would like to do
@@ -36,7 +37,6 @@ void Game::showTown(Hero hero1)
 	case 1:
 		goToBattle(hero1);
 		showTown(hero1);
-		//to do, call dung select screen
 		break;
 	case 2:
 		//to do, call shop
@@ -77,7 +77,7 @@ int Game::getSelection(int maxChoice)
 
 	return choice;
 }
-void Game::showInventory(Hero hero1)
+void Game::showInventory(Hero &hero1)
 {
 	cout << "Inventory" << endl
 		<< "Equiped items: " << endl; 
@@ -85,8 +85,7 @@ void Game::showInventory(Hero hero1)
 	cout << "Inventory items: " << endl;
 	hero1.inv.displayInventory();
 	cout << "\n1. Equip item" << endl
-		<< "2. Unequip item" << endl
-		<< "3. Go back to town" << endl;
+		<< "2. Go back to town" << endl;
 	switch (getSelection(3)){
 	case 1:
 		// ask user what item use would like to equip
@@ -185,6 +184,8 @@ void Game::SaveEquiped(Hero hero1){
 		sqlite3_finalize(stmt);
 		sqlite3_close(db);
 	}
-void Game::goToBattle(Hero hero1) {
+}
+void Game::goToBattle(Hero &hero1)
+{
 	Battle battle1(hero1, 1);
 }

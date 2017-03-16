@@ -5,6 +5,7 @@
 #define Battle_h
 #include "Hero.h"
 #include "Monster.h"
+#include "Spell.h"
 #include <string>
 
 
@@ -37,17 +38,17 @@ class Battle
 	std::vector<int> MonsterSpellIDs;
 	
 public:
-	Battle(Hero hero1, int monsterLevel);
+	Battle(Hero &hero1, int monsterLevel);
 	char firstAttack();
-	void startOfBattle(Hero hero1, Monster monster1);
+	void startOfBattle(Hero &hero1, Monster monster1);
 	double getAccuracy(char whoseTurn);
 	void heroTurn(Hero hero1, Monster monster1);
 	void monsterTurn(Hero hero1, Monster monster1);
-	void gameEngine(Hero hero1, Monster monster1);
+	void gameEngine(Hero &hero1, Monster monster1);
 	void playSound(Monster monster1);
 	void dispImage(Monster monster1);
 	void loadMonsterSpell(Monster monster1);
-	void dropLoot(Monster monster1, Hero hero1);
+	void dropLoot(Monster monster1, Hero &hero1);
 	void getFileContents(Monster monster1);
 };
 
