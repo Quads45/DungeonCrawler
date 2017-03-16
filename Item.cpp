@@ -18,25 +18,4 @@ Item::Item(int ItemSelectID) {
 	ItemProfID = cur->get_int(7);
 
 }
-int Item::getItemAD() {
-	return ItemAttackDamage;
-}
-double Item::getitemAS() {
-	return ItemAttackSpeed;
-}
-int Item::getItemHP() {
-	return ItemHP;
-}
-int Item::getItemValue() {
-	return ItemValue;
-}
-std::string Item::getItemType() {
-	return ItemType;
-}
-std::string Item::getItemName() {
-	return ItemName;
-}
-int Item::getItemProfId() {
-	return ItemProfID;
-}
 

@@ -50,7 +50,7 @@ Hero::Hero(int charID)
 
 	Inventory inv(charID); //Use diffenent constructor.
 						   //This one will load items from database
-	//updateStats();		   //This will update the stats of the character depending on what level they are.
+	updateStats();		   //This will update the stats of the character depending on what level they are.
 }
 void Hero::setStats(int newHp, int newDefence,int newDodge, int newAccuracy, int newAD, double newAS)
 {

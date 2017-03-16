@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 class Monster {
-	// Create variables for each field in the Monster table so they can be called by the functions below
+	// Create variables for each field in the Monster table 
+	//so they can be called by the functions below
 	int MonsterID, MonsterHP, MonsterSelect, MonsterDefence, MonsterAttackDamage, MonsterDodge, MonsterAccuracy, MonsterExpValue, MonsterLevel;
 	std::string MonsterName;
 	double MonsterAttackSpeed;
@@ -11,8 +12,9 @@ class Monster {
 	std::vector<int> possibleMonsterIDs;
 
 public:
-	// 
+	// create a constructor 
 	Monster(int MonsterLevelSelect);
+	//create functions which retrieve specific data on the monster.
 	int getMonsterAD() { return MonsterAttackDamage; };
 	int getMonsterHP() { return MonsterHP; };
 	double getMonsterAS() { return MonsterAttackSpeed; };
@@ -23,6 +25,7 @@ public:
 	bool getMonsterBoss() { return MonsterBoss; };
 	int getMonsterExpValue() { return MonsterExpValue; };
 	int getMonsterLevel() { return MonsterLevel; };
+	//create a constructor for the random number generator function.
 	int RNG(int maxValue);
 
 };
