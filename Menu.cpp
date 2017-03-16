@@ -2,6 +2,8 @@
 #include "Menu.h"
 using namespace std;
 class InvalidInput {};
+#include "libsqlite.hpp";
+
 Menu::Menu()
 {
     
@@ -47,8 +49,39 @@ int Menu::displayNewGame()
 }
 int Menu::displayLoadGame()
 {
-	//To do..
-	return 0;
+	//open the database
+	sqlite::sqlite db("dung.db");
+	auto cur = db.get_statement();
+	
+	//count how many records have been read
+	int RcdCount = 0;
+	//create variables to temporarily hold data on the character
+	string tempCharName;
+	int tempCharLevel;
+	int tempCharID;
+	//create a query the 
+	//read the relevant values from each record of the Character table
+	cur->set_sql("SELECT [CharacterID],[CharacterName],[Level_ID] FROM [Character];");
+	cur->prepare();
+
+	while (cur->step()) {
+		
+		//set the variables equal to the 
+		tempCharID = cur->get_int(0);
+		tempCharName = cur->get_text(1);
+		tempCharLevel = cur->get_int(2);
+		//print the the character information
+		cout << tempCharID << " , " << tempCharName << " , "<< tempCharLevel << endl;
+		//add to the count
+		RcdCount += 1;
+	}
+
+	//get the user to select a save by typing in a character ID
+	cout << "Please select a Character to load.";
+	// get the user to inpute what save they want to load
+	//by calling the getselection function
+	return getSelection(RcdCount);
+	
 }
 int Menu::displayHelp()
 {

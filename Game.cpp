@@ -95,7 +95,6 @@ void Game::showInventory(Hero &hero1)
 	default:
 		showTown(hero1);
 	}
-	showInventory(hero1);
 }
 void Game::showStats(Hero hero1)
 { 

@@ -4,7 +4,6 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Monster.h"
-#include <string>
 using namespace std;
 int main(){
     Menu menu1;
@@ -21,9 +20,11 @@ int main(){
 	}
 	else if (mainDisplayChoice == 2)
 	{
-		menu1.displayLoadGame();
+		
+		Hero hero1(menu1.displayLoadGame());
 		//get saved stats from data base
 		//create character after this if statement
+
 	}
 	else if (mainDisplayChoice == 3)
 	{

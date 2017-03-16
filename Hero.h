@@ -1,6 +1,7 @@
 // Hero.h
 #include "Inventory.h"
 #include "libsqlite.hpp"
+#include <string>
 #ifndef Hero_H
 #define Hero_H
 class Hero
@@ -23,6 +24,7 @@ class Hero
 	int getHeroAccuracy() { return accuracy; }
 	int getHeroDodge() { return dodge; }
 	void updateStats();
+	void removeEquipedItem(int vectorID);
 	int getHeroProfID() { return profID; }
 	int getLevel() { return level; }
 	int getExp() {return experience;}

@@ -9,9 +9,11 @@ class Spell {
 	double SpellAttSpdDamage;
 	std::vector<int> possibleSpellIDs;
 public:
+	//create a constructor 
 	Spell(int Spell_ID, int profid);
 	Spell(int Spell_ID);
 	std::string getSpellName(){ return SpellName; }
+	//create functions which retrieve specific data on a spell
 	std::string getSpellEffect;
 	int getSpellHPDamage() { return SpellHPDamage; }
 	int getSpellDefenceDamage() { return SpellDefenceDamage; }
