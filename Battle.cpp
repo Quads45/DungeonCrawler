@@ -2,7 +2,7 @@
 #include "Battle.h"
 #include "libsqlite.hpp"
 #include "windows.h"
-#include "MMSystem.h"
+//#include "MMSystem.h"
 
 using namespace std;
 
@@ -47,7 +47,7 @@ void Battle::startOfBattle(Hero &hero1, Monster monster1)
 	dispImage(monster1);
 
 	//Monster Sound
-	playSound(monster1);
+	//playSound(monster1);
 	
 	//In Battle Stats
 	curHero1.HP = hero1.getHeroHP();
@@ -177,7 +177,7 @@ void Battle::dispImage(Monster monster1)
 
 
 //Monster Sounds
-
+/*
 void Battle::playSound(Monster monster1)
 {
 	if (monster1.getMonsterName() == "Zombie") {
@@ -198,7 +198,7 @@ void Battle::playSound(Monster monster1)
 	if (monster1.getMonsterName() == "Gremlin") {
 		PlaySound(TEXT("gremlin.wav"), NULL, SND_SYNC);
 	}
-}
+}*/
 
 
 

@@ -36,7 +36,7 @@ Hero::Hero(string name, int profession)
 	updateStats();
 }
 Hero::Hero(int charID)
-{	
+{
 	//open the database
 	sqlite::sqlite db("dung.db");
 	//create a query and access the table
@@ -56,7 +56,11 @@ Hero::Hero(int charID)
 	Inventory inv(charID); //Use diffenent constructor.
 						   //This one will load items from database
 	updateStats();		   //This will update the stats of the character depending on what level they are.
-						   }
+
+						   
+
+}
+
 
 void Hero::getStats()
 {
