@@ -14,7 +14,7 @@ public:
 	Spell(int Spell_ID);
 	std::string getSpellName(){ return SpellName; }
 	//create functions which retrieve specific data on a spell
-	std::string getSpellEffect;
+	std::string getSpellEffect() { return SpellEffect; }
 	int getSpellHPDamage() { return SpellHPDamage; }
 	int getSpellDefenceDamage() { return SpellDefenceDamage; }
 	int getSpellDodgeDamage() { return SpellDodgeDamage; }

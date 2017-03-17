@@ -13,7 +13,7 @@ class Battle
 {
 	//declaring variable type
 	struct currentHero {
-		int HP;
+		double HP;
 		int AD;
 		double AS;
 		int dodge;
@@ -21,14 +21,13 @@ class Battle
 		int defence;
 	};
 	struct currentMonster {
-		int HP;
+		double HP;
 		int AD;
 		double AS;
 		int dodge;
 		int accuracy;
 		int defence;
 	};
-	int percentage;
 	bool hit;
 	char firstTurn;
 	currentHero curHero1;

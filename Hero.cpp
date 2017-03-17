@@ -110,5 +110,31 @@ void Hero::updateStats(){
 	accuracy = heroAccuracy + LevelAccuracy;
 	dodge = heroDodge + LevelAccuracy;
 }
-
+void Hero::addExp(int expValue)
+{
+	sqlite::sqlite db("dung.db");    // open database
+	auto cur = db.get_statement();            // create query   
+	cur->set_sql("SELECT * FROM [Level] WHERE [Level_ID]=?;");
+	cur->prepare();   // run query
+	cur->bind(1, level); // pass variable to sql queary
+	cur->step();
+	int expReq = cur->get_int(1);
+	if ((experience + expValue) > expReq)
+	{
+		experience = (experience + expValue) - expReq;
+		level += 1;
+		cout << "You leveled up!" << endl
+			<< "You gained:" << endl
+			<< "HP: +" << cur->get_int(7) << endl
+			<< "AD: +" << cur->get_int(3) << endl
+			<< "AS: +" << cur->get_double(6) << endl
+			<< "Defence: +" << cur->get_int(2) << endl
+			<< "Dodge: +" << cur->get_int(4) << endl
+			<< "Accuracy: +" << cur->get_int(5) << endl;
+	}
+	else
+	{
+		experience += expValue;
+	}
+}
 

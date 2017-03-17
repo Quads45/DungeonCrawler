@@ -11,7 +11,10 @@ Battle::Battle(Hero &hero1,int monsterLevel) // constructor
 {
 	Monster monster1(monsterLevel);
 	Spell spell1(0, hero1.getHeroProfID());
+	Spell spell2(1, hero1.getHeroProfID());
 	currentSpells.push_back(spell1);
+	currentSpells.push_back(spell2);
+	loadMonsterSpell(monster1);
 	startOfBattle(hero1, monster1);
 	
 }
@@ -35,9 +38,8 @@ void Battle::startOfBattle(Hero &hero1, Monster monster1)
 	system("cls");
 	
 	//Dungeon level
-	cout << "====================================================================" << "\n DUNGEON - Level " << monster1.getMonsterLevel() 
-		<< "\n====================================================================" << "\n" << endl;
-	loadMonsterSpell(monster1);
+	cout << "==============================================================================" << "\n DUNGEON - Level " << monster1.getMonsterLevel() 
+		<< "\n==============================================================================" << "\n" << endl;
 	//Intro
 	cout << "As you walk along you stop and notice a level " << monster1.getMonsterLevel() << " " << monster1.getMonsterName() << " has appeared! " << "\n" << endl;
 	
@@ -45,11 +47,10 @@ void Battle::startOfBattle(Hero &hero1, Monster monster1)
 	dispImage(monster1);
 
 	//Monster Sound
-	//playSound(monster1);
+	playSound(monster1);
 	
 	//In Battle Stats
 	curHero1.HP = hero1.getHeroHP();
-	cout << curHero1.HP << endl;
 	curHero1.AD = hero1.getHeroAD();
 	curHero1.AS = hero1.getHeroAS();
 	curHero1.defence = hero1.getHeroDefence();
@@ -93,29 +94,44 @@ void Battle::gameEngine(Hero &hero1, Monster monster1)
 {
 	while ((curHero1.HP > 1) && (curMonster1.HP>1)) {
 		if (firstAttack()=='h') {
+			HANDLE consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(consolehwnd, FOREGROUND_GREEN);
 			heroTurn(hero1, monster1);
 			if (curMonster1.HP > 0) {
+				HANDLE consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(consolehwnd, FOREGROUND_RED);
 				monsterTurn(hero1, monster1);
+				cin.get();
 			}
 		}
 		else {
+			HANDLE consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(consolehwnd, FOREGROUND_RED);
 			monsterTurn(hero1, monster1);
+			cin.get();
 			if (curHero1.HP > 0) {
+				HANDLE consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(consolehwnd, FOREGROUND_GREEN);
 				heroTurn(hero1, monster1);
+
 			}
+
 		}
 	}
 	if (curMonster1.HP > 0){
-		cout << "You lost, you suck. " << endl;
+		cout << "You lost, have another go. " << endl;
 	}
 	else
 	{
 		dropLoot(monster1, hero1);
-		cout << "\nYou won gg" << endl;
+		cout << "\nYou won the battle." << endl;
+		hero1.addExp(monster1.getMonsterExpValue()); //function to do, in hero class
+		cout << "You have gained " << monster1.getMonsterExpValue() << " EXP." << endl;
 	}
-	//Game game1;
-	//game1.startNewGame(hero1);
-	//display end of battle
+	string x;
+	cin >> x;
+	system("cls");
+	system("Color 7");
 }
 
 //Monster ASCII
@@ -161,7 +177,7 @@ void Battle::dispImage(Monster monster1)
 
 
 //Monster Sounds
-/*
+
 void Battle::playSound(Monster monster1)
 {
 	if (monster1.getMonsterName() == "Zombie") {
@@ -183,7 +199,7 @@ void Battle::playSound(Monster monster1)
 		PlaySound(TEXT("gremlin.wav"), NULL, SND_SYNC);
 	}
 }
-*/
+
 
 
 
@@ -192,7 +208,6 @@ void Battle::heroTurn(Hero hero1, Monster monster1)
 	int choice;
 	
 	
-	//Spell spell2(1, hero1.getProfID());
 	cout << "It is your turn " << hero1.getName() << " Please choose your turn Wisely! ..." << endl;
 	cout << "Select your ability:" << endl;
 	for (int i=0; i < currentSpells.size(); i++) {
@@ -208,7 +223,7 @@ void Battle::heroTurn(Hero hero1, Monster monster1)
 	double attSpdDamage=0;
 	int DefenceDamage=0;
 	int DodgeDamage=0;
-
+	cout  << currentSpells[choice].getSpellEffect() << endl;
 	if (monster1.RNG(100) <= getAccuracy('h')) {
 		hpDamage = curHero1.AD + currentSpells[choice].getSpellHPDamage();
 		accuracyDamage = curHero1.AD + currentSpells[choice].getSpellAccuracyDamage();
@@ -216,23 +231,23 @@ void Battle::heroTurn(Hero hero1, Monster monster1)
 		attSpdDamage = curHero1.AD + currentSpells[choice].getSpellAttSpdDamage();
 		DefenceDamage = curHero1.AD + currentSpells[choice].getSpellDefenceDamage();
 		DodgeDamage = curHero1.AD + currentSpells[choice].getSpellDodgeDamage();
-		cout << "You have done " << hpDamage << "damage!" << endl;
+		
+		cout << "You hit for (" << hpDamage << " HP) damage!" << endl;
+		double percentHP = curMonster1.HP / monster1.getMonsterHP() * 100;
+		cout << monster1.getMonsterName() << " took " << hpDamage*(1 - (curMonster1.defence / 100)) << " damage." << endl;
+
 	}
 	else {
 		cout << "You have missed" << endl;
 	}
-	
-
-	curMonster1.HP -= hpDamage;
 	curMonster1.accuracy -= accuracyDamage;
 	curMonster1.AD -= attDmgDamage;
 	curMonster1.AS -= attSpdDamage;
 	curMonster1.defence -= DefenceDamage;
+	curMonster1.HP -= hpDamage*(1 - (curMonster1.defence / 100));
 	curMonster1.dodge -= DodgeDamage;
+	
 	cout << monster1.getMonsterName() << " now has " << curMonster1.HP << " HP." << endl << endl;
-
-
-
 }
 void Battle::monsterTurn(Hero hero1, Monster monster1)
 {
@@ -252,25 +267,29 @@ void Battle::monsterTurn(Hero hero1, Monster monster1)
 	int DodgeDamage = 0;
 	
 	if (monster1.RNG(100) <= getAccuracy('m')) {
+		cout << MonsterSpells[rndChoice].getSpellHPDamage() << endl;
 		hpDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellHPDamage();
 		accuracyDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAccuracyDamage();
 		attDmgDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAttDmgDamage();
 		attSpdDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellAttSpdDamage();
 		DefenceDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellDefenceDamage();
 		DodgeDamage = curMonster1.AD + MonsterSpells[rndChoice].getSpellDodgeDamage();
-		cout << "The " << monster1.getMonsterName() << " has done " << hpDamage << "damage!" << endl;
+
+		cout << "Monster hit you for (" << hpDamage << " HP) damage!" << endl;
+		double percentHP = curMonster1.HP / monster1.getMonsterHP() * 100;
+		cout << "You" <<" took " << hpDamage*(1 - (curHero1.defence / 100)) << " damage." << endl;
 	}
 	else {
 		cout << "The " << monster1.getMonsterName() << " has missed" << endl;
 	}
-
-	curHero1.HP -= hpDamage;
 	curHero1.accuracy -= accuracyDamage;
 	curHero1.AD -= attDmgDamage;
 	curHero1.AS -= attSpdDamage;
 	curHero1.defence -= DefenceDamage;
+	curHero1.HP -= hpDamage*(1 - (curHero1.defence / 100));
 	curHero1.dodge -= DodgeDamage;
-	cout << "You now have " << curHero1.HP << endl<< endl<< endl;
+	
+	cout << "You now have " << curHero1.HP << " HP." << endl<< endl<< endl;
 
 }
 void Battle::loadMonsterSpell(Monster monster1) {
@@ -286,7 +305,6 @@ void Battle::loadMonsterSpell(Monster monster1) {
 		MonsterSpellIDs.push_back(cur->get_int(0));
 	}
 	for (int i=0; i < MonsterSpellIDs.size(); i++) {
-		cout << MonsterSpellIDs[i] << endl;
 		Spell spell1(MonsterSpellIDs[i]);
 		MonsterSpells.push_back(spell1);
 	}

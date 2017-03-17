@@ -95,21 +95,32 @@ void Inventory::moveToEquiped(int vectorIDInventory)
 }
 void Inventory::displayInventory()
 {
+	int gold = 0;
+	int x = 0;
 	for (int i=0; i < inventoryItems.size() ; i+=1)
 	{
-		cout << i+1 <<". " << inventoryItems[i].getItemName() << "(";
-		if (inventoryItems[i].getItemAD() != 0){
-			cout << "AD: " << inventoryItems[i].getItemAD() << " ,";
+		if (inventoryItems[i].getItemType() != "Currency") {
+			x += 1;
+			cout << x << ". " << inventoryItems[i].getItemName() << "(";
+			if (inventoryItems[i].getItemAD() != 0) {
+				cout << "AD: " << inventoryItems[i].getItemAD() << " ,";
+			}
+			if (inventoryItems[i].getitemAS() != 0) {
+				cout << "AS: " << inventoryItems[i].getitemAS() << " ,";
+			}
+			if (inventoryItems[i].getItemHP() != 0) {
+				cout << "HP: " << inventoryItems[i].getItemHP() << " ,";
+			}
+			cout << "Value: " << inventoryItems[i].getItemValue() << " ,";
+			cout << "Type: " << inventoryItems[i].getItemType() << ")" << endl;
 		}
-		if (inventoryItems[i].getitemAS() != 0){
-			cout << "AS: " << inventoryItems[i].getitemAS() << " ,";
+		else{
+			gold += 1;
 		}
-		if (inventoryItems[i].getItemHP() != 0){
-			cout << "HP: " << inventoryItems[i].getItemHP() << " ,";
-		}
-		cout << "Value: " << inventoryItems[i].getItemValue() << " ,";
-		cout << "Type: " << inventoryItems[i].getItemType() << ")" << endl;
 	}
+	x += 1;
+	cout << x << ". " << gold << " gold." << endl;
+
 }
 int Inventory::getSelection(int maxChoice)
 {
