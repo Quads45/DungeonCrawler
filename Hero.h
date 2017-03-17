@@ -26,5 +26,6 @@ class Hero
 	int getHeroProfID() { return profID; }
 	int getLevel() { return level; }
 	int getExp() {return experience;}
+	void addExp(int expValue);
 };
 #endif

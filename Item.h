@@ -13,8 +13,8 @@ public:
 	Item(int ItemID);
 	//create functions which retrieves specific data on an item.
 	int getItemAD() { return ItemAttackDamage; };
-	int getItemHP() { return ItemAttackSpeed; };
-	double getitemAS() { return ItemHP; };
+	int getItemHP() { return ItemHP; };
+	double getitemAS() { return ItemAttackSpeed; };
 	int getItemValue() { return ItemValue; };
 	int getItemProfId() { return ItemProfID; };
 	std::string getItemType() { return ItemType; };
