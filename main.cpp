@@ -26,6 +26,7 @@ int main(){
 		Hero hero1(choice);
 		//get saved stats from data base
 		//create character after this if statement
+		game1.startNewGame(hero1);
 	}
 	else if (mainDisplayChoice == 3)
 	{
