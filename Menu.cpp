@@ -81,7 +81,6 @@ int Menu::displayLoadGame()
 	// get the user to inpute what save they want to load
 	//by calling the getselection function
 	return getSelection(RcdCount);
-	
 }
 int Menu::displayHelp()
 {

@@ -9,6 +9,7 @@
 #include "Inventory.h"
 class Inventory
 {	
+	int gold;
 	int choice;
 	std::vector<Item> equipedItems; //stores equiped items
 	std::vector<Item> inventoryItems; // stores items that are in inventory but not equiped
@@ -22,6 +23,7 @@ public:
 	void removeFromInventory(); // ie when someone sells item
 	void moveToEquiped(int ItemID);
 	void addToInventory(int ItemId);
+	void addToEquiped(int ItemID);
 	int getSelection(int maxCHoice);
 	int getEquipedItemID(int vectorIDofItem);
 	int countGold();
@@ -29,6 +31,7 @@ public:
 	int getInventorySize();	
 	void removeFromInventory(int vectorID);
 	int getItemValue(int vectorPosition);
+	void removeGold(int gold);
 };
 
 #endif Inventory_H

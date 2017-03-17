@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Monster.h"
 #include "Battle.h"
+#include "Shop.h"
 #include "sqlite3/sqlite3.h"
 using namespace std;
 class InvalidInput {};
@@ -39,13 +40,17 @@ void Game::showTown(Hero &hero1)
 		showTown(hero1);
 		break;
 	case 2:
+		goToShop(hero1);
+		showTown(hero1);
 		//to do, call shop
 		break;
 	case 3:
 		showInventory(hero1);
+		showTown(hero1);
 		break;
 	case 4:
 		showStats(hero1);
+		showTown(hero1);
 		break;
 	case 5:
 		Save(hero1);
@@ -86,14 +91,13 @@ void Game::showInventory(Hero &hero1)
 	hero1.inv.displayInventory();
 	cout << "\n1. Equip item" << endl
 		<< "2. Go back to town" << endl;
-	switch (getSelection(3)){
+	switch (getSelection(2)){
 	case 1:
 		// ask user what item use would like to equip
 		cout << "Which item would you like to equip?" << endl;
-		hero1.inv.moveToEquiped(getSelection(hero1.inv.getInventorySize())-1);
+		int a = getSelection(hero1.inv.getInventorySize());
+		hero1.inv.moveToEquiped(a-1);
 		break;
-	default:
-		showTown(hero1);
 	}
 }
 void Game::showStats(Hero hero1)
@@ -101,7 +105,7 @@ void Game::showStats(Hero hero1)
 	hero1.updateStats();
 	cout << hero1.getName() << ", your statistics are: \n";
 	hero1.getStats();
-	showTown(hero1);
+
 }
 void Game::Save(Hero hero1)
 {
@@ -187,4 +191,8 @@ void Game::SaveEquiped(Hero hero1){
 void Game::goToBattle(Hero &hero1)
 {
 	Battle battle1(hero1, 1);
+}
+void Game::goToShop(Hero &hero1)
+{
+	Shop shop1(hero1);
 }

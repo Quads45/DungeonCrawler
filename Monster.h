@@ -13,7 +13,6 @@ class Monster {
 
 public:
 	Monster(int MonsterLevelSelect);
-	//create functions which retrieve specific data on the monster.
 	int getMonsterAD() { return MonsterAttackDamage; };
 	int getMonsterHP() { return MonsterHP; };
 	double getMonsterAS() { return MonsterAttackSpeed; };

@@ -18,6 +18,7 @@ public:
 	int getCharID();
 	void SaveEquiped(Hero hero1);
 	void goToBattle(Hero &hero1);
+	void goToShop(Hero &hero1);
 };
 #endif // !Game_H
 	

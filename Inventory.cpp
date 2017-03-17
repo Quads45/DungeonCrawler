@@ -6,6 +6,10 @@ class InvalidInput{};
 using namespace std;
 Inventory::Inventory()
 {
+	Item item(7);
+	
+	equipedItems.push_back(item);
+	equipedItems.push_back(item);
 	// this constructor is used when new game is created
 }
 Inventory::Inventory(int charID)
@@ -20,20 +24,20 @@ void Inventory::loadInventory(int charID)
 	auto cur = db.get_statement();
 
 	// load items from inventory table
-	cur->set_sql("SELECT [ItemID],[InventoryQuantity],[InventoryEquipped] FROM [Inventory] WHERE [CharacterID] = ?;");
-	cur->prepare(); 
+	cur->set_sql("SELECT [ItemID], [InventoryQuantity], [InventoryEquipped] FROM [Inventory] WHERE [CharacterID]=?;");
+	cur->prepare();
 	cur->bind(1, charID);
 	// where character == charID
 	while (cur->step()) {
 		//check whether the character id is correct and then whether its equipped or not
 		if (cur->get_int(3) == 1) {
 			//so the item is equipped so use the equip item function
-			addToEquiped(cur->get_int(1));
+			addToEquiped(cur->get_int(0));
 		}
 		else{
 			//the item does not have the equipped status
 			//so it is just added to the inventory
-			addToInventory(cur->get_int(1));
+			addToInventory(cur->get_int(0));
 		}
 	}
 }
@@ -54,9 +58,10 @@ void Inventory::displayEquiped()
 		if (equipedItems[i].getItemHP() != 0){
 			cout << "HP: " << equipedItems[i].getItemHP() << " ,";
 		}
-		cout << ", Value: " << equipedItems[i].getItemValue() << " ";
-		cout << ", Type: " << equipedItems[i].getItemType() << ")" << endl;
+		cout << "Value: " << equipedItems[i].getItemValue() << " ,";
+		cout << "Type: " << equipedItems[i].getItemType() << ")" << endl;
 	}
+	cout << '\n';
 }
 void Inventory::addToInventory(int ItemID)
 {
@@ -138,8 +143,8 @@ int Inventory::getEquipedItemID(int vectorIDofItem)
 int Inventory::countGold()
 {
 	// Sequential search
-	int gold;
-	for (int i; i < inventoryItems.size(); i++)
+	gold = 0;
+	for (int i=0; i < inventoryItems.size(); i++)
 	{
 		if (inventoryItems[i].getItemType() == "Currency"){
 			gold += 1;
@@ -149,7 +154,7 @@ int Inventory::countGold()
 }
 void Inventory::removeFromInventory(int vectorID)
 {
-	inventoryItems.erase(inventoryItems.begin() + (vectorID+1));
+	inventoryItems.erase(inventoryItems.begin() + (vectorID));
 }
 int Inventory::getInventorySize()
 {
@@ -161,4 +166,20 @@ int Inventory::getItemValue(int vectorPosition)
 }
 int Inventory::getInventoryItemID(int vectorPosition){
 	return inventoryItems[vectorPosition].getItemID();
+}
+void Inventory::removeGold(int gold)
+{
+	for (int i = 0; gold != 0; i++)
+	{
+		if (inventoryItems[i].getItemType() == "Currency")
+		{
+			removeFromInventory(i);
+			gold -= 1;
+		}
+
+	}
+}
+void Inventory::addToEquiped(int ItemID)
+{
+	equipedItems.push_back(ItemID);
 }
