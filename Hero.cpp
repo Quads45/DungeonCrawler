@@ -4,15 +4,13 @@
 using namespace std;
 Hero::Hero(string name, int profession)
 {
-	sqlite::sqlite db("dung.db");    // open database
+	// Hero class constructor
+	// This one is used when creating a new character (new game)
 
-	auto cur = db.get_statement();            // create query   
-	cur->set_sql("SELECT [ProfessionHP],[ProfessionDefence],[ProfessionDodge],[ProfessionAccuracy],[ProfessionAttackDamage],[ProfessionAttackSpeed] FROM [Profession] WHERE [ProfessionID]=?;");
-	cur->prepare();   // run query
-	cur->bind(1, profession); // pass variable to sql queary
-	cur->step();
+	// assign name and profession given by player to the class members
 	heroName = name;
 	profID = profession;
+	// depending on their class give them starting items 
     if (profession == Hero::Warrior){
         cout << "You have chosen warrior."<< endl;
 		inv.addToInventory(1);
@@ -28,15 +26,17 @@ Hero::Hero(string name, int profession)
 		inv.addToInventory(3);
 		inv.addToInventory(4);
 	};
+	// start character at level 1 and 0 experience
 	level = 1;
 	experience = 0;
+	// gives player 1 gold coin
 	inv.addToInventory(7);
 	inv.moveToEquiped(1);
 	inv.moveToEquiped(0);
 	updateStats();
 }
 Hero::Hero(int charID)
-{
+{	
 	//open the database
 	sqlite::sqlite db("dung.db");
 	//create a query and access the table
@@ -64,9 +64,10 @@ Hero::Hero(int charID)
 
 void Hero::getStats()
 {
-    cout << "HP: " << hp<<'\n';
-    cout << "AD: " << attack_damage<<'\n';
-    cout << "AS: " << attack_speed <<'\n' << '\n';
+	// display each stat
+	cout << "HP: " << hp << '\n';
+	cout << "AD: " << attack_damage << '\n';
+	cout << "AS: " << attack_speed << '\n' << '\n';
 	cout << "Defence: " << defence << '\n';
 	cout << "Dodge: " << dodge << '\n';
 	cout << "Accuracy: " << accuracy << '\n' << '\n';
@@ -74,18 +75,25 @@ void Hero::getStats()
 
 
 void Hero::updateStats(){
-	// call function from inventory that returns the 
-	// call it again
+	// create two new items witht the same ID as the ones equiped
 	Item item1(inv.getEquipedItemID(0));
 	Item item2(inv.getEquipedItemID(1));
 	sqlite::sqlite db("dung.db");    // open database
+
+	// temporary variables hold on to data collected from database
+
 	int heroHP, heroAD, levelHP, levelAD, levelDefence, LevelAccuracy, LevelDodge, heroDefence, heroAccuracy, heroDodge;
 	double heroAS, LevelAS;
+
 	auto cur = db.get_statement();            // create query   
+	// get all stats from Profession table where profession ID is equal the the one chosen by the player
 	cur->set_sql("SELECT [ProfessionHP], [ProfessionAttackDamage], [ProfessionAttackSpeed], [ProfessionDefence], [ProfessionAccuracy], [ProfessionDodge] FROM [Profession] WHERE [ProfessionID]=?;");
 	cur->prepare();   // run query
+	// binding the profID variable (chosen by the player) to the sql query above (where the question mark is)
 	cur->bind(1, profID); // pass variable to sql queary
-	cur->step();
+	cur->step(); // go to the first row of data
+
+	// assign data from the query to the temporar
 	heroHP = cur->get_int(0);
 	heroAD = cur->get_int(1);
 	heroAS = cur->get_double(2);
@@ -94,6 +102,7 @@ void Hero::updateStats(){
 	heroDodge = cur->get_int(5);
 	if (true)
 	{
+		// this code  is in if statement to by pass errors created by not being able to exit the sql query
 		auto cur = db.get_statement();            // create query   
 		cur->set_sql("SELECT [LevelAddDefence],[LevelAddAttDmg],[LevelAddDodge],[LevelAddAccuracy],[LevelAddAttSpd],[LevelAddHp] FROM [Level] WHERE [Level_ID]=?;");
 		cur->prepare();   // run query
@@ -111,7 +120,7 @@ void Hero::updateStats(){
 	attack_speed = heroAS + item1.getitemAS() + item2.getitemAS() + LevelAS;
 	defence = heroDefence + levelDefence;
 	accuracy = heroAccuracy + LevelAccuracy;
-	dodge = heroDodge + LevelAccuracy;
+	// add the hero stats from database to the equiped item stats and the level stats from the databse
 }
 void Hero::addExp(int expValue)
 {
