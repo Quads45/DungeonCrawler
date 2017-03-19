@@ -48,7 +48,7 @@ public:
 	void dispImage(Monster monster1);
 	void loadMonsterSpell(Monster monster1);
 	void dropLoot(Monster monster1, Hero &hero1);
-	void getFileContents(Monster monster1);
+	//void getFileContents(Monster monster1); testing text file integration
 };
 
 
