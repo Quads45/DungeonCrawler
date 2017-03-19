@@ -71,26 +71,33 @@ void Inventory::addToInventory(int ItemID)
 
 }
 void Inventory::moveToEquiped(int vectorIDInventory)
-{	
-
+{
 	if (inventoryItems[vectorIDInventory].getItemType() == "Sword")
 	{
+		addToInventory(equipedItems[0].getItemID());
 		equipedItems[0] = inventoryItems[vectorIDInventory];
 	}
 	else if (inventoryItems[vectorIDInventory].getItemType() == "Bow")
 	{
+		addToInventory(equipedItems[0].getItemID());
 		equipedItems[0] = inventoryItems[vectorIDInventory];
 	}
 	else if (inventoryItems[vectorIDInventory].getItemType() == "Wand")
 	{
+		addToInventory(equipedItems[0].getItemID());
 		equipedItems[0] = inventoryItems[vectorIDInventory];
 	}
 	else if (inventoryItems[vectorIDInventory].getItemType() == "Armor")
 	{
+		addToInventory(equipedItems[1].getItemID());
 		equipedItems[1] = inventoryItems[vectorIDInventory];
 	}
-	inventoryItems.erase(inventoryItems.begin() + vectorIDInventory);
-
+	if (inventoryItems[vectorIDInventory].getItemType() != "Currency"){
+		inventoryItems.erase(inventoryItems.begin() + vectorIDInventory);
+	}
+	else{
+		cout << "You cannot equip gold!"<<endl;
+	}
 	
 }
 void Inventory::displayInventory()

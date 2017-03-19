@@ -190,7 +190,7 @@ void Game::SaveEquiped(Hero hero1){
 }
 void Game::goToBattle(Hero &hero1)
 {
-	Battle battle1(hero1, 1);
+	Battle battle1(hero1, hero1.getLevel());
 }
 void Game::goToShop(Hero &hero1)
 {
