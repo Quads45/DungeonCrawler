@@ -12,7 +12,11 @@ class Monster {
 	std::vector<int> possibleMonsterIDs;
 
 public:
+	//create a constructor for the function which selects a random
+	//monster based on the level
 	Monster(int MonsterLevelSelect);
+	//create functions which retrieve the statistics of the monster
+	//so the rest of the program can call it
 	int getMonsterAD() { return MonsterAttackDamage; };
 	int getMonsterHP() { return MonsterHP; };
 	double getMonsterAS() { return MonsterAttackSpeed; };

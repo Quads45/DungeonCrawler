@@ -9,7 +9,8 @@ class Item {
 	std::string ItemType, ItemName;
 	double ItemAttackSpeed;
 public: 
-	//create a constructor
+	//create a constructor for the item to be created using
+	//information from the database.
 	Item(int ItemID);
 	//create functions which retrieves specific data on an item.
 	int getItemAD() { return ItemAttackDamage; };
