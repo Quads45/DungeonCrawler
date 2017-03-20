@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int choice(bool isCorrect)
+{
+    string a;
+    cin >> a;
+    if (a != "n" && a != "y" && a != "yes" && a != "no")    // checks user input is either y,yes,n,no
+    {
+        cout << "invalid input" << endl;
+    }
+    if (a == "n" || a == "no")
+    {
+        isCorrect = false;
+    }   
+    else if (a == "y" || a == "yes")
+    {
+        isCorrect = true; 
+    }
+    return isCorrect;
+}
