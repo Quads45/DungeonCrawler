@@ -1,0 +1,13 @@
+#include <iostream>
+#include "libsqlite.hpp"
+
+using namespace std;
+
+int main()
+{
+     sqlite::sqlite db( "mydatabase.sqlite" );
+     auto cur = db.get_statement();
+     cur->set_sql(" CREATE TABLE HEROES(id INTEGER PRIMARY KEY,type TEXT ,hp INTEGER, stamina INTEGER, ability1 TEXT , ability2 TEXT , ability3 TEXT);");
+	cur->prepare();
+	cur->step();
+}
