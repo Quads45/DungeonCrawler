@@ -1,0 +1,172 @@
+#include <iostream>
+#include <unistd.h>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <fstream>
+#include <stdio.h>
+#include <sstream>
+//#include <sqlite3.h>
+#include <stdlib.h>
+#include "function_definitions/prototypes.h"
+#include "function_definitions/random.cpp"
+#include "function_definitions/yesno.cpp"
+#include "function_definitions/checkint.cpp"
+//#include "function_definitions/level1/pstats.cpp"
+
+using namespace std;
+
+int b = 1;          //time delay between lines on screen
+
+int main()          //menu
+{
+    try {
+        system("clear");                            //clear the terminal
+        cout << "Hello user this is the main menu you will need to choose from these options" << endl; 
+        cout << "1)   start game" << endl;
+        cout << "2)   settings" << endl;
+        cout << "3)   exit game" << endl;
+        int userinput = check();
+        switch (userinput){
+            case 1 : {
+                startgame();                        //start the game
+            }
+            case 2 : {
+                return 0;                           //settings
+            }
+            case 3 : {
+                exit(0);                            //exits the game
+            }
+            default : {
+                cout << "invalid input please pick one of the three choices" << endl;
+                sleep(int(b));                      //sleep set amount of time
+                userinput = 0;
+                main();                             //repeat the main menu
+            }
+        }
+    }
+    catch (exception) {
+        std::cerr << "Warning error occurred" << std::endl;
+        return 0;
+    }
+        return 0;
+ }
+
+int startgame()     //start to the story and name selection
+{
+    try {
+            int userinput = 0;
+
+            string user;
+            string a;
+            int random = randint();
+            //string enemy = randenemy();
+            bool isCorrect = false;
+
+            sleep(int (b));
+            while (isCorrect == false)
+            {
+                cout << "Please enter your name" << endl;
+                cin >> user;
+                cout << "your name is " << user << endl;
+                sleep(int (b));
+                cout << "is this correct?" << endl;
+                sleep(int (b));
+                isCorrect = choice(isCorrect);
+            }
+            cout << user << " wakes up" << endl;
+            sleep(int (b));
+            cout << user << " walkes into the wood to gather firewood" << endl;
+            sleep(int (b));
+            cout << user << " walks " << random << "m" << endl;
+            sleep(int (b));
+            cout << user << " encounters box" << endl;
+            sleep(int (b));
+            cout << "1) open the box" << endl;
+            cout << "2) hit the box" << endl;
+            cout << "3) leave the box alone" << endl;
+
+            bool done=false;
+            while(done == false){
+            int userinput = check();
+                switch (userinput){
+                    case 1 : {
+                        done=true;
+                        gclass();
+                        break;
+                    }
+                    case 2 : {
+                        done=true;
+                        cout << "you hit the box nothing happens" << endl;
+                        break;
+                    }
+                    case 3 : {
+                        done=true;
+                        break;
+                    }
+                    default:{
+                        cout << "invalid input please pick one of the three choices" << endl;
+                        break;
+                    }
+                }
+            }
+    }
+    catch (exception) {
+        std::cerr << "Warning error occurred" << std::endl;
+        std::cerr << "Terminating program" << std::endl;
+    }
+    return 0;
+}
+
+int gclass()        //choose the class you want
+{
+    try {
+        int userinput = 0;
+
+        bool isCorrect = false;
+        while (isCorrect == false)
+        { 
+            int i = 0;
+            i++;
+            if (i == 4){
+                break;
+            }
+            userinput = 0;
+            cout << "you open the box you find" << endl;
+            cout << "1) A bow" << endl;
+            cout << "2) A sword" << endl;
+            cout << "3) A staff" << endl;
+            int userinput = check();
+            switch(userinput){
+                    case 1 : {
+                        cout << "you are an archer is this correct" << endl;
+                        isCorrect = choice(isCorrect);
+                        int stat = 1;
+                        break;
+                    }
+                    case 2 : {
+                        cout << "you are an soldier is this correct" << endl;
+                        isCorrect = choice(isCorrect);
+                        int stat = 2;
+                        break;
+                    }
+                    case 3 : {
+                        cout << "you are an wizard is this correct" << endl;
+                        isCorrect = choice(isCorrect);
+                        int stat = 3;
+                        break;
+                    }
+                    default : {
+                        cout << "invalid input please pick one of the three choices" << endl;
+                        sleep(int(b));
+                        continue; 
+                    }
+            }
+
+        }
+    }
+    catch (exception){
+        std::cerr << "Warning error occurred" << std::endl;
+        std::cerr << "Terminating program" << std::endl;
+    }
+}
